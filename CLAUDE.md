@@ -1,0 +1,37 @@
+# قانون اساسی و معماری مهندسی پروژه «وب‌سایت دایان حسابداری (Dayan Hesabdari)»
+*(فایل استاندارد و هماهنگ `AGENTS.md` / `CLAUDE.md` — قابل خواندن خودکار توسط Argon، Claude Code، Cursor، OpenCode، Codex و Hermes)*
+
+---
+
+## ۱. شناسنامه پروژه و منابع کلیدی (Single Source of Truth - SSOT)
+
+- **نام پروژه:** وب‌سایت رسمی «دایان حسابداری» (`dayanhesabdar.ir`)
+- **کارفرما / مدیر مجموعه:** سرکار خانم مرضیه منتظری (۴ سال سابقه حسابداری اجرایی + ۲ سال سابقه آموزش کاربردی بازار کار | شماره تماس: `09139946615`)
+- **معمار و توسعه‌دهنده پروژه:** سید هادی موسوی (`sd.hadi.mousavi@gmail.com`)
+- **پوشه مادر پروژه در گوگل درایو (`#دایان حسابداری (Dayan_Hesabdar)#`):** `1Q8hJh5Z5ysxc-TRr7Q50kv5MD2DodEXh` ([مشاهده پوشه پروژه در گوگل درایو](https://drive.google.com/drive/folders/1Q8hJh5Z5ysxc-TRr7Q50kv5MD2DodEXh))
+- **پوشه آرشیو نسخه‌ها (`خروجی‌ها و نسخه‌های سامانه و مستندات (Deliverables_Archive)`):** `1Q1uWALkMPL7QxLqFehA296-w6GhvDfZ2` ([مشاهده پوشه آرشیو در گوگل درایو](https://drive.google.com/drive/folders/1Q1uWALkMPL7QxLqFehA296-w6GhvDfZ2))
+
+---
+
+## ۲. ثبت چرایی تصمیمات معماری (Architectural Decision Records - ADR)
+
+### ADR-001: انتخاب معماری Static-First SPA در فاز اول (Phase 1 MVP) به جای فروشگاه‌ساز پیچیده
+- **زمینه (Context):** پیش از این، وب‌سایتی روی سایت‌ساز «پرتال» (`portal.ir`) با قالب پیش‌فرض و داده‌های غیرمرتبط برای کارفرما ساخته شده بود که رضایت‌بخش نبود. کارفرما به دو خروجی کلیدی نیاز دارد: ۱) **پورتفولیو و رزومه حرفه‌ای** جهت جذب پروژه‌های پیمانکاری خدمات حسابداری و مالیاتی کسب‌وکارها (B2B)، و ۲) **معرفی دوره‌ها و لینک‌های آموزشی حسابداری بازار کار** و هدایت متقاضیان به ارتباط مستقیم در شبکه‌های اجتماعی/تلفن جهت مشاوره و پرداخت (B2C).
+- **تصمیم (Decision):** در فاز اول، به جای درگیر شدن با پیچیدگی‌های سبد خرید، درگاه پرداخت بانکی (ایونماد/شاپرک) و پنل کاربری سنگین، وب‌سایت بر پایه معماری **Static-First / Single-File Modular HTML5 + Tailwind CSS + Vanilla JS (`SCHEMA_VERSION = 'schema_v1'`)** طراحی شد که شامل کاتالوگ تعاملی خدمات، کاتالوگ دوره‌ها با فیلتر و جستجو، «مسیرسنج هوشمند نیاز مالی و آموزشی» و «پل ارتباطی مستقیم با پیام از پیش آماده (Pre-filled Lead-Gen Bridge)» به شماره `09139946615` است.
+- **پیامدها و نقشه راه فاز ۲ (Consequences & Phase 2 Evolution):**
+  - **مزایای فاز ۱:** سرعت بارگذاری آنی، هزینه نگهداری نزدیک به صفر، سئوی عالی، قابلیت میزبانی رایگان روی GitHub Pages / Cloudflare Pages + ابر آروان، و تمرکز ۱۰۰٪ روی برندینگ شخصی خانم منتظری.
+  - **مسیر ارتقا در فاز ۲:** بدون تغییر ساختار رابط کاربری، می‌توان در فاز دوم دکمه‌های «هماهنگی ثبت‌نام دوره» را به لینک پرداخت مستقیم (PayPing / ZarinPal) یا بک‌اند سبک (Google Sheets + Apps Script بر اساس Profile A یا Supabase بر اساس Profile B) متصل کرد.
+
+---
+
+## ۳. قوانین پایه مهندسی نرم‌افزار بومی هوش مصنوعی (AI-Native Software Engineering Rules)
+
+1. **قانون فایل‌های خالص فیزیکی (Pure Binary/Text Files — NEVER `.gdoc`):**
+   - تمامی فایل‌های `.md`، `.html`، `.json` و `.gitignore` در این پوشه باید منحصراً به صورت فایل فیزیکی (`application/octet-stream` یا `text/html` از طریق `file:///...`) ذخیره شوند تا در Google Drive for Desktop و Git به صورت فایل واقعی دیده شوند، نه شورتکات `.gdoc`.
+2. **فایل‌های زنده با نام ثابت در ریشه پوشه (Active Root Working Files):**
+   - `index.html`: آخرین نسخه زنده و قابل استقرار وب‌سایت (همراه با تصویر پرسنلی جاسازی‌شده Base64 و هدر `@provenance`).
+   - `site_content.json`: منبع حقیقت واحد داده‌های محتوایی (`SSOT`) شامل مشخصات برند، لیست خدمات و لیست دوره‌ها.
+   - `marzieh_montazeri_profile.jpg`: فایل اصلی تصویر پرسنلی خانم مرضیه منتظری جهت آرشیو دارایی‌ها (Assets).
+   - `AGENTS.md` / `CLAUDE.md` / `README.md` / `00_CHANGELOG.md` / `.gitignore`: مستندات زنده مخزن (Living Documentation).
+3. **استاندارد شناسنامه تبارشناسی چندایجنتی (8-Field Multi-Agent Provenance):**
+   - هر نسخه جدید باید دارای کامنت `@provenance` در بالای `index.html` باشد، یک کپی آرشیوی با الگوی `[Category]_[Module]_v[Major.Minor]_[SolarDate]_T[Turn]_[Agent-Model-Gateway]_[ShortDesc].html` در پوشه `Deliverables_Archive` ذخیره شود، و در `00_CHANGELOG.md` ثبت گردد.
