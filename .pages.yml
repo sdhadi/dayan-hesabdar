@@ -1,0 +1,160 @@
+components:
+  courseFormat:
+    type: object
+    fields:
+      - name: offered
+        label: این شیوه برگزار می‌شود
+        type: boolean
+        default: false
+      - name: fee
+        label: شهریه به تومان
+        type: number
+        description: برای دورهٔ رایگان صفر وارد کنید. با خالی گذاشتن این فیلد، «استعلام شهریه» نمایش داده می‌شود.
+        options: { min: 0 }
+      - name: features
+        label: ویژگی‌های آموزش
+        type: text
+        description: هر ویژگی را در یک خط بنویسید.
+  recordId:
+    type: uuid
+    required: true
+    hidden: true
+    options: { editable: false, generate: false }
+  visibility:
+    type: boolean
+    label: نمایش در سایت
+    default: false
+    description: پس از آماده شدن محتوا، این گزینه را روشن و تغییرات را ذخیره کنید.
+  webLink:
+    type: string
+    pattern:
+      regex: '^https://\S+$'
+      message: نشانی کامل را با https:// وارد کنید.
+
+media:
+  - name: portraits
+    label: عکس‌های معرفی
+    input: media/portraits
+    output: /media/portraits
+    extensions: [jpg, jpeg, png, webp]
+    rename: random
+
+content:
+  - name: academy
+    label: مدیریت آموزشگاه
+    type: file
+    path: site_content.json
+    format: json
+    operations: { create: false, rename: false, delete: false }
+    fields:
+      - name: courses
+        label: دوره‌های آموزشی
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: '{fields.title}' }
+        fields:
+          - name: id
+            component: recordId
+          - name: slug
+            type: string
+            hidden: true
+          - name: category
+            type: string
+            hidden: true
+          - name: title
+            label: نام دوره
+            type: string
+            required: true
+          - name: published
+            component: visibility
+          - name: summary
+            label: معرفی کوتاه در فهرست دوره‌ها
+            type: text
+          - name: description
+            label: دربارهٔ دوره
+            type: text
+          - name: instructor
+            label: نام مدرس
+            type: string
+            default: مرضیه منتظری
+          - name: level
+            label: سطح دوره
+            type: string
+          - name: prerequisite
+            label: پیش‌نیاز
+            type: string
+          - name: duration
+            label: مدت دوره
+            type: string
+          - name: offline
+            label: آموزش آفلاین
+            component: courseFormat
+          - name: inPerson
+            label: آموزش حضوری
+            component: courseFormat
+          - name: syllabus
+            label: سرفصل‌ها
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: '{fields.title}' }
+            fields:
+              - name: title
+                label: نام سرفصل
+                type: string
+                required: true
+              - name: topics
+                label: مباحث این سرفصل
+                type: text
+                description: هر مبحث را در یک خط بنویسید.
+          - name: goal
+            label: هدف و نتیجهٔ یادگیری
+            type: text
+          - name: videoUrl
+            label: لینک مستقیم ویدیوی نمونه (اختیاری)
+            component: webLink
+      - name: articles
+        label: مقالات و آموزش‌های رایگان
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: '{fields.title}' }
+        fields:
+          - name: id
+            component: recordId
+          - name: title
+            label: عنوان مطلب
+            type: string
+            required: true
+          - name: published
+            component: visibility
+          - name: summary
+            label: معرفی کوتاه
+            type: text
+          - name: body
+            label: متن آموزش
+            type: text
+            required: true
+            description: برای شروع پاراگراف جدید، یک خط خالی بگذارید.
+          - name: resourceUrl
+            label: لینک فایل یا ویدیوی آموزشی (اختیاری)
+            component: webLink
+      - name: academy
+        label: مشخصات آموزشگاه
+        type: object
+        fields:
+          - name: name
+            label: نام آموزشگاه
+            type: string
+            required: true
+          - name: address
+            label: نشانی کلاس‌های حضوری
+            type: string
+            required: true
+          - name: portrait
+            label: عکس معرفی خانم منتظری
+            type: image
+            description: با خالی گذاشتن این فیلد، تصویر اصلی سایت نمایش داده می‌شود.
+            options: { media: portraits }
+
+settings:
+  content:
+    merge: true

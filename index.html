@@ -4,12 +4,12 @@
  @agent Codex (Desktop)
  @model GPT-6
  @gateway_account OpenAI via Codex desktop
- Turn 4 | 1405/08/24 (2026-11-15)
+ Turn 5 | 1405/09/02 (2026-11-23)
  @execution_mode Windows desktop workspace
- @base_version Website v2.1
- @output_version Website v2.2 (SCHEMA_VERSION: schema_v1)
- @change_scope [Responsive visual refresh for Home, Course Catalog and Course Detail; Mobile Navigation; Embedded Default Typeface]
- @archive_filename 03_Website_Static_v2.2_14050824_T04_Codex-GPT6-OpenAI_Responsive_Visual_Refresh.html
+ @base_version Website v2.2
+ @output_version Website v2.3 (SCHEMA_VERSION: schema_v1)
+ @change_scope [Approved course catalog, tuition and venue, free learning library, authenticated editorial publishing]
+ @archive_filename 04_Website_Static_v2.3_14050902_T05_Codex-GPT6-OpenAI_Academy_Content_Management.html
 -->
 <!--
 Vazirmatn v33.003
@@ -432,7 +432,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .academy-heading { display: flex; justify-content: space-between; align-items: end; gap: 1rem; margin-block-end: 2rem; }
     .academy-heading .button { flex: none; }
 
-    .course-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1rem; }
+    .course-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr)); gap: 1rem; }
     .course-card {
       position: relative;
       display: flex;
@@ -455,7 +455,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .course-card h2, .course-card h3 { color: var(--ink); font-size: clamp(1.07rem, 1.65vw, 1.25rem); line-height: 1.62; }
     .course-card p { margin-block: 0.55rem 1.15rem; color: var(--muted); font-size: 0.875rem; }
 
-    .card-duration { display: block; margin-block: auto 0.7rem; color: var(--muted); font-size: 0.77rem; }
     .course-link {
       display: flex;
       justify-content: space-between;
@@ -517,7 +516,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .detail-layout {
       display: grid;
       grid-template-columns: minmax(0, 1fr) minmax(16.5rem, 0.42fr);
-      grid-template-areas: "heading enrollment" "demo enrollment" "content enrollment";
+      grid-template-areas: "heading enrollment" "content enrollment";
       align-items: start;
       gap: 2rem clamp(1.5rem, 4vw, 3.4rem);
       padding-block: 1rem clamp(3rem, 6vw, 5rem);
@@ -526,7 +525,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .detail-heading { grid-area: heading; }
     .detail-heading h1 { font-size: clamp(1.8rem, 3.45vw, 3rem); }
     .detail-heading .section-lead { margin-block-start: 0.65rem; max-width: 44rem; }
-    .course-meta { display: flex; align-items: center; flex-wrap: wrap; gap: 0.4rem 0.75rem; margin-block-end: 0.65rem; color: var(--muted); font-size: 0.84rem; }
 
     .enrollment {
       grid-area: enrollment;
@@ -550,10 +548,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .enrollment .button { display: flex; width: 100%; }
     .enrollment .button + .button { margin-block-start: 0.55rem; }
 
-    .course-demo { grid-area: demo; }
-    .demo-heading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.35rem 0.9rem; margin-block-end: 0.65rem; }
-    .demo-heading h2, .course-content h2 { font-size: clamp(1.25rem, 2.4vw, 1.7rem); }
-    .demo-heading small { color: var(--muted); }
+    .course-content h2 { font-size: clamp(1.25rem, 2.4vw, 1.7rem); }
     .course-video { display: block; width: 100%; aspect-ratio: 16 / 9; border-radius: var(--radius); background: var(--green-deep); }
     .demo-stage {
       display: grid;
@@ -577,29 +572,61 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .course-content { grid-area: content; display: grid; gap: 2rem; }
     .course-content section { min-width: 0; padding-block-start: 1.1rem; border-block-start: 1px solid var(--line); }
     .course-content p { margin-block-start: 0.65rem; color: var(--muted); font-size: 0.95rem; }
-    .outcomes {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 0.65rem;
-      margin-block: 1rem 0;
-      padding: 0;
-      list-style: none;
-    }
-
-    .outcomes li { padding: 0.75rem; border-inline-start: 2px solid #a2b3a5; background: var(--sage); color: var(--ink); font-size: 0.87rem; }
     .syllabus { margin-block-start: 0.65rem; }
-    .syllabus article { padding-block: 0.85rem; border-block-end: 1px solid var(--line); }
-    .syllabus h3 { font-size: 1rem; }
-    .syllabus p { margin-block-start: 0.25rem; }
+
+    .course-card { overflow-wrap: anywhere; }
+    .card-price { margin-block: auto .55rem; color: var(--green); font-weight: 720; }
+    .course-card .course-link { margin-block-start: .35rem; }
+    .catalog-tools { display: flex; align-items: end; flex-wrap: wrap; gap: .85rem; margin-block-end: 1.45rem; }
+    .catalog-tools .field:first-child { flex: 1 1 18rem; }
+    .catalog-tools .field:last-child { flex: 0 1 14rem; }
+    .catalog-tools input, .catalog-tools select { background-color: var(--white); font-size: 1rem; }
+    .listing-note { color: var(--muted); margin-block-end: 1rem; }
+    .empty-list { grid-column: 1 / -1; padding: 1.4rem; border: 1px solid var(--line); border-radius: var(--radius); color: var(--muted); background: var(--white); }
+    .academy .empty-list { color: var(--ink); }
+    .academy-address { display: grid; gap: .15rem; margin-block-start: 1.1rem; color: var(--muted); font-style: normal; }
+    .academy-address strong { color: var(--ink); }
+    .detail-heading .eyebrow { margin-block-end: .6rem; }
+    .prose { white-space: pre-line; overflow-wrap: anywhere; }
+    .detail-heading .prose { margin-block-start: 1.05rem; max-width: 45rem; }
+    .enrollment-meta div { font-size: .94rem; }
+    .format-picker { min-width: 0; margin: 0 0 1rem; padding: 0; border: 0; }
+    .format-picker legend { margin-block-end: .55rem; font-weight: 780; }
+    #format-options { display: grid; gap: .4rem; }
+    .format-choice { display: flex; align-items: center; gap: .45rem; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: .55rem; cursor: pointer; }
+    .format-choice:has(:checked) { border-color: var(--green); background: var(--sage); }
+    .format-choice input { accent-color: var(--green); }
+    .format-choice strong { margin-inline-start: auto; font-variant-numeric: tabular-nums; }
+    .format-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 15rem), 1fr)); gap: .9rem; margin-block-start: .85rem; }
+    .format-panel { padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--white); }
+    .format-panel h3 { font-size: 1.05rem; color: var(--green); }
+    .topic-list { margin: .6rem 0 0; padding-inline-start: 1.25rem; list-style: disc; }
+    .topic-list li { padding-inline-start: .15rem; margin-block: .3rem; }
+    .topic-list li::marker { color: var(--gold); }
+    .contact .academy-address { margin-block: .45rem .85rem; }
+    .format-panel address { font-size: .94rem; }
+    .syllabus details { border-block-end: 1px solid var(--line); padding-block: .7rem; }
+    .syllabus summary, .lesson-preview summary { display: flex; align-items: center; justify-content: space-between; gap: 1rem; cursor: pointer; list-style: none; font-weight: 720; }
+    .syllabus summary::-webkit-details-marker, .lesson-preview summary::-webkit-details-marker { display: none; }
+    .syllabus details[open] > summary .disclosure-icon::after, .lesson-preview[open] > summary .disclosure-icon::after { content: none; }
+    .lesson-preview { border-block-start: 1px solid var(--line); padding-block: 1rem; }
+    .lesson-preview[open] > summary { margin-block-end: .8rem; }
+    .reading-page { max-width: 56rem; }
+    .reading-body { max-width: 46rem; padding-block: 1.5rem 4rem; font-size: 1.075rem; line-height: 2.05; }
+    .reading-body p + p { margin-block-start: .95rem; }
+    .reading-body .button { margin-block-start: 1.4rem; }
+    .load-notice { padding-block: 1rem; color: var(--ink); }
+    @media (max-width: 41rem) {
+      .catalog-tools .field { flex: 1 1 100%; }
+    }
 
     @media (max-width: 60rem) {
       .site-nav { gap: 0.9rem; }
       .header-shell { gap: 0.75rem; }
       .hero-layout { gap: 2rem; }
-      .course-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
 
-    @media (max-width: 51rem) {
+    @media (max-width: 64rem) {
       :root { --header-height: 4.125rem; }
       .shell { width: min(calc(100% - 2.5rem), var(--wrap)); }
       .header-cta { display: none; }
@@ -617,7 +644,10 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       .site-nav a { padding: 0.35rem 0.5rem; }
       .site-nav a + a { border-block-start: 1px solid var(--line); }
       .site-nav a[aria-current]::after { display: none; }
-      .detail-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "demo" "enrollment" "content"; }
+    }
+
+    @media (max-width: 51rem) {
+      .detail-layout { grid-template-columns: minmax(0, 1fr); grid-template-areas: "heading" "enrollment" "content"; }
       .enrollment { position: static; }
     }
 
@@ -633,7 +663,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       .portrait-caption { padding: 0.5rem 0.85rem 0.45rem 1rem; }
       .story-layout, .service-layout, .contact-layout { gap: 1.35rem; }
       .academy-heading { align-items: start; flex-direction: column; }
-      .course-grid, .field-grid, .outcomes { grid-template-columns: minmax(0, 1fr); }
+      .course-grid, .field-grid { grid-template-columns: minmax(0, 1fr); }
     }
 
     @media (max-width: 23rem) {
@@ -670,6 +700,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <a href="#story">درباره دایان</a>
         <a href="#services">خدمات مالی</a>
         <a href="#courses">دوره‌های آموزشی</a>
+        <a href="#articles">مقالات و آموزش‌های رایگان</a>
         <a href="#contact">ارتباط با ما</a>
       </nav>
 
@@ -681,6 +712,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
   </header>
 
   <main id="main-content" tabindex="-1">
+    <div id="content-error" class="shell load-notice" role="alert" hidden>
+      اطلاعات آموزشگاه بارگذاری نشد. <button id="content-retry" type="button" class="text-link">تلاش دوباره</button>
+    </div>
     <div id="page-home">
       <section class="hero" id="top" aria-labelledby="home-title">
         <div class="shell hero-layout">
@@ -782,7 +816,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <div>
               <p class="eyebrow">آموزش کاربردی</p>
               <h2 id="academy-title" tabindex="-1">دوره‌های حسابداری بازار کار</h2>
-              <p class="section-lead">سرفصل‌ها و پیش‌نمایش آموزشی هر دوره را ببینید و دورهٔ مناسب خودتان را انتخاب کنید.</p>
+              <p class="section-lead">شیوهٔ برگزاری، شهریه و سرفصل‌ها را ببینید و دورهٔ مناسب خود را انتخاب کنید.</p>
             </div>
             <a class="button button-inverse" href="#courses">همهٔ دوره‌ها <span class="arrow" aria-hidden="true">←</span></a>
           </div>
@@ -797,6 +831,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <h2 id="contact-title" tabindex="-1">گفت‌وگو با مرضیه منتظری</h2>
             <p class="section-lead">برای مشاورهٔ مالی کسب‌وکارتان یا ثبت‌نام در دوره‌ها تماس بگیرید یا پیام بفرستید.</p>
             <a class="contact-number tabular-nums" href="tel:09139946615"><bdi dir="ltr">۰۹۱۳ ۹۹۴ ۶۶۱۵</bdi></a>
+            <address class="academy-address" hidden><strong>نشانی آموزشگاه</strong><span id="contact-address"></span></address>
             <div class="contact-links">
               <a class="text-link" href="https://wa.me/989139946615" target="_blank" rel="noopener noreferrer">واتس‌اپ <span class="arrow" aria-hidden="true">↗</span></a>
               <a class="text-link" href="sms:09139946615">پیامک</a>
@@ -843,11 +878,26 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <span aria-current="page">دوره‌های آموزشی</span>
         </nav>
         <header class="catalog-intro">
-          <p class="eyebrow">با تدریس مرضیه منتظری</p>
+          <p class="eyebrow" data-academy-name></p>
           <h1 tabindex="-1">دوره‌های حسابداری بازار کار</h1>
-          <p class="section-lead">از ثبت اولین سند تا کار با اکسل و سامانه مودیان، سرفصل‌ها و پیش‌نمایش هر دوره را بررسی کنید.</p>
+          <p class="section-lead">شهریه و شرایط دوره‌ها را مقایسه کنید و برای ثبت‌نام با آموزشگاه در تماس باشید.</p>
         </header>
         <section class="catalog-body" aria-label="فهرست دوره‌ها">
+          <p id="course-route-note" class="listing-note" hidden>این دوره در حال حاضر در دسترس نیست.</p>
+          <div class="catalog-tools" role="search" aria-label="جست‌وجوی دوره‌ها">
+            <div class="field">
+              <label for="course-search">جست‌وجوی دوره</label>
+              <input id="course-search" type="search" placeholder="نام دوره یا مهارت موردنظر" />
+            </div>
+            <div class="field">
+              <label for="course-mode-filter">شیوهٔ برگزاری</label>
+              <select id="course-mode-filter">
+                <option value="">همهٔ شیوه‌ها</option>
+                <option value="offline">آفلاین</option>
+                <option value="inPerson">حضوری</option>
+              </select>
+            </div>
+          </div>
           <div id="catalog-courses-container" class="course-grid"></div>
         </section>
       </div>
@@ -865,67 +915,91 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
         <div class="detail-layout">
           <header class="detail-heading">
-            <div class="course-meta">
-              <span id="detail-badge" class="course-tag"></span>
-              <span id="detail-duration"></span>
-            </div>
+            <p class="eyebrow" data-academy-name></p>
             <h1 id="detail-title" tabindex="-1"></h1>
             <p id="detail-subtitle" class="section-lead"></p>
+            <p id="detail-description" class="prose"></p>
           </header>
 
-          <section class="course-demo" aria-labelledby="demo-title">
-            <div class="demo-heading">
-              <h2 id="demo-title">پیش‌نمایش درس</h2>
-              <small id="demo-format"></small>
-            </div>
-            <video id="course-html5-video" class="course-video" controls preload="metadata" hidden>
-              مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
-            </video>
-            <div id="interactive-demo-stage" class="demo-stage" hidden>
-              <div id="demo-slide-counter" class="demo-label tabular-nums"></div>
-              <div class="demo-copy" aria-live="polite">
-                <h3 id="demo-slide-heading"></h3>
-                <p id="demo-slide-text"></p>
-              </div>
-              <div class="demo-controls">
-                <div class="demo-progress" aria-hidden="true"><span id="demo-progress-bar"></span></div>
-                <div class="button-row">
-                  <button class="button button-primary button-small" id="demo-play-btn" type="button">پخش اسلایدها</button>
-                  <button class="button button-inverse button-small" id="demo-next-btn" type="button">اسلاید بعدی <span class="arrow" aria-hidden="true">←</span></button>
-                </div>
-              </div>
-            </div>
-          </section>
-
-          <aside class="enrollment" aria-label="ثبت‌نام و مشخصات دوره">
+          <aside class="enrollment" aria-label="شهریه و ثبت‌نام دوره">
             <div class="instructor">
-              <div>
-                <small>مدرس و پشتیبان دوره</small>
-                <strong>مرضیه منتظری</strong>
-              </div>
+              <img id="instructor-photo" width="56" height="56" alt="" hidden />
+              <div><small>مدرس دوره</small><strong id="instructor-name"></strong></div>
             </div>
-            <dl class="enrollment-meta">
-              <div><dt>سطح دوره</dt><dd id="sidebar-level"></dd></div>
-              <div><dt>ساختار دوره</dt><dd id="sidebar-sessions"></dd></div>
-              <div><dt>نحوه دریافت</dt><dd>لینک مستقیم و پشتیبانی</dd></div>
-            </dl>
-            <a class="button button-primary" id="course-enrollment" href="https://wa.me/989139946615" target="_blank" rel="noopener noreferrer">درخواست دوره در واتس‌اپ <span class="arrow" aria-hidden="true">↗</span></a>
-            <a class="button button-outline" href="tel:09139946615">تماس با مدرس</a>
+            <dl id="course-facts" class="enrollment-meta"></dl>
+            <fieldset id="course-formats" class="format-picker">
+              <legend>شیوهٔ شرکت و شهریه</legend>
+              <div id="format-options"></div>
+            </fieldset>
+            <a class="button button-primary" id="course-enrollment" href="https://wa.me/989139946615" target="_blank" rel="noopener noreferrer">هماهنگی ثبت‌نام در واتس‌اپ</a>
+            <a class="button button-outline" href="tel:09139946615">تماس با آموزشگاه</a>
           </aside>
 
           <div class="course-content">
-            <section aria-labelledby="outcomes-title">
-              <h2 id="outcomes-title">چه مهارت‌هایی یاد می‌گیرید؟</h2>
-              <p id="detail-long-desc"></p>
-              <ul id="detail-outcomes-grid" class="outcomes"></ul>
+            <section id="course-learning-formats" aria-labelledby="formats-title">
+              <h2 id="formats-title">نحوهٔ برگزاری دوره</h2>
+              <div id="format-descriptions" class="format-grid"></div>
             </section>
-            <section aria-labelledby="syllabus-title">
+            <section id="course-program" aria-labelledby="syllabus-title">
               <h2 id="syllabus-title">سرفصل‌های دوره</h2>
               <div id="detail-syllabus-list" class="syllabus"></div>
             </section>
+            <section id="course-goal" aria-labelledby="goal-title">
+              <h2 id="goal-title">در پایان دوره</h2>
+              <p id="detail-goal" class="prose"></p>
+            </section>
+            <details id="course-preview" class="lesson-preview">
+              <summary><span id="demo-title">پیش‌نمایش درس</span><span class="disclosure-icon" aria-hidden="true"></span></summary>
+              <video id="course-html5-video" class="course-video" controls preload="none" hidden>
+                مرورگر شما از پخش ویدیو پشتیبانی نمی‌کند.
+              </video>
+              <div id="interactive-demo-stage" class="demo-stage" hidden>
+                <div id="demo-slide-counter" class="demo-label tabular-nums"></div>
+                <div class="demo-copy" aria-live="polite">
+                  <h3 id="demo-slide-heading"></h3>
+                  <p id="demo-slide-text"></p>
+                </div>
+                <div class="demo-controls">
+                  <div class="demo-progress" aria-hidden="true"><span id="demo-progress-bar"></span></div>
+                  <div class="button-row">
+                    <button class="button button-primary button-small" id="demo-play-btn" type="button">پخش اسلایدها</button>
+                    <button class="button button-inverse button-small" id="demo-next-btn" type="button">اسلاید بعدی</button>
+                  </div>
+                </div>
+              </div>
+            </details>
           </div>
         </div>
       </div>
+    </div>
+
+    <div id="page-articles" hidden>
+      <div class="shell">
+        <nav class="breadcrumbs" aria-label="مسیر صفحه"><a href="#top">خانه</a><span aria-hidden="true">/</span><span aria-current="page">مقالات و آموزش‌های رایگان</span></nav>
+        <header class="catalog-intro">
+          <p class="eyebrow" data-academy-name></p>
+          <h1 tabindex="-1">مقالات و آموزش‌های رایگان</h1>
+        </header>
+        <section class="catalog-body" aria-label="فهرست مطالب">
+          <p id="article-route-note" class="listing-note" hidden>این مطلب در حال حاضر در دسترس نیست.</p>
+          <div id="article-list" class="course-grid"></div>
+        </section>
+      </div>
+    </div>
+
+    <div id="page-article-detail" hidden>
+      <article class="shell reading-page">
+        <nav class="breadcrumbs" aria-label="مسیر صفحه"><a href="#top">خانه</a><span aria-hidden="true">/</span><a href="#articles">مقالات و آموزش‌های رایگان</a></nav>
+        <header class="catalog-intro">
+          <p class="eyebrow">آموزش رایگان</p>
+          <h1 id="article-title" tabindex="-1"></h1>
+          <p id="article-summary" class="section-lead"></p>
+        </header>
+        <div class="reading-body">
+          <div id="article-body" class="prose"></div>
+          <a id="article-resource" class="button button-outline" target="_blank" rel="noopener noreferrer" hidden>مشاهدهٔ منبع آموزشی</a>
+        </div>
+      </article>
     </div>
   </main>
 
@@ -951,429 +1025,388 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     </div>
   </footer>
 
+  <script id="academy-content" type="application/json" data-source="site_content.json">
+{"academy":{"name":"آکادمی مالی و حسابداری مرضیه منتظری","address":"استان کرمان، شهرستان شهربابک، بلوار جهاد","portrait":""},"courses":[{"id":"5997c31f-aeda-4dcc-9d2a-5487a0951966","slug":"accounting-principles","published":true,"title":"دوره جامع آموزش اصول حسابداری","summary":"آموزش حسابداری از پایه تا مهارت عملی","description":"اگر هیچ پیش‌زمینه‌ای از حسابداری ندارید و می‌خواهید این حرفه را از صفر و به‌صورت اصولی یاد بگیرید، این دوره برای شما طراحی شده است.\n\nدر این دوره، مفاهیم حسابداری را از پایه یاد می‌گیرید و قدم‌به‌قدم با ثبت رویدادهای مالی، شناسایی حساب‌ها، اصلاح و بستن حساب‌ها و تهیه صورت‌های مالی آشنا می‌شوید.","level":"عمومی","prerequisite":"ندارد","instructor":"مرضیه منتظری","offline":{"offered":true,"fee":3200000,"features":"برخورداری از پشتیبانی کامل آموزشی\nارسال تمرین‌ها و تکالیف هر جلسه برای مدرس\nبررسی تمرین‌ها و رفع اشکالات هنرجو\nورود به جلسه بعدی پس از یادگیری کامل مطالب جلسه قبل و انجام تمرین‌ها\nامکان یادگیری در زمان دلخواه و متناسب با برنامه شخصی"},"inPerson":{"offered":true,"fee":5500000,"features":"برگزاری کلاس‌ها به‌صورت حضوری و تعاملی\nآموزش مرحله‌به‌مرحله همراه با توضیحات مدرس\nانجام تمرین‌ها و مثال‌های عملی در کلاس\nامکان پرسش و پاسخ مستقیم و رفع اشکال در طول آموزش\nبررسی میزان یادگیری هنرجویان در طول دوره\nآموزش با هدف درک عمیق مفاهیم و آمادگی برای ورود به بازار کار"},"syllabus":[{"title":"آشنایی با مبانی حسابداری","topics":"تعریف حسابداری و آشنایی با کاربردهای آن\nمعادله حسابداری و تشریح حساب‌های تشکیل‌دهنده آن\nماهیت حساب‌ها و قواعد بدهکار و بستانکار\nنحوه ثبت اسناد حسابداری"},{"title":"شناخت حساب‌ها و ساختار کدینگ","topics":"بررسی حساب‌های درآمد، هزینه، خرید و فروش\nآشنایی با کدینگ حسابداری و ساختار حساب‌ها"},{"title":"حسابداری عملیات مالی","topics":"حسابداری پیش‌دریافت‌ها و پیش‌پرداخت‌ها\nحسابداری صندوق و تنخواه‌گردان\nحسابداری بهای تمام‌شده\nحسابداری مالیات بر ارزش افزوده"},{"title":"حسابداری موجودی کالا","topics":"روش‌های ارزیابی موجودی کالا (ادواری و دائمی)\nروش‌های قیمت‌گذاری موجودی کالا: FIFO (اولین صادره از اولین وارده)، LIFO (آخرین صادره از اولین وارده)، میانگین موزون"},{"title":"حسابداری دارایی‌ها","topics":"روش‌های محاسبه استهلاک دارایی‌ها"},{"title":"اصلاح و اختتام حساب‌ها","topics":"اصلاح حساب‌ها\nبستن حساب‌ها"},{"title":"تهیه گزارش‌ها و صورت‌های مالی","topics":"نحوه تهیه تراز آزمایشی\nنحوه تهیه ترازنامه\nنحوه تهیه صورت سود و زیان\nبررسی و تهیه صورت‌های مالی در شرکت‌های خدماتی و بازرگانی"}],"goal":"تربیت هنرجویی که حسابداری را بفهمد، بتواند رویدادهای مالی را تحلیل کند، اسناد حسابداری را به‌درستی ثبت کند و گزارش‌های مالی را تهیه کند.\n\nآموزش از صفر، تمرین مستمر، پشتیبانی آموزشی و یادگیری تا تسلط."},{"id":"a78ae62a-d19d-42b5-9dff-120093d28dcd","slug":"payroll","published":true,"title":"دوره جامع آموزش حسابداری حقوق و دستمزد","summary":"از محاسبه کارکرد کارکنان تا تهیه لیست حقوق و دستمزد","description":"در این دوره به‌صورت کاربردی با تمام مراحل محاسبه حقوق و دستمزد کارکنان آشنا می‌شوید. از محاسبه آیتم‌های حقوقی و مزایا گرفته تا محاسبه عیدی، سنوات، مرخصی، بیمه و مالیات حقوق.\n\nهدف این دوره، آموزش مهارت‌هایی است که یک حسابدار برای انجام امور حقوق و دستمزد در شرکت‌ها و مجموعه‌های اقتصادی به آن نیاز دارد.","level":"عمومی","prerequisite":"ندارد","instructor":"مرضیه منتظری","offline":{"offered":true,"fee":2800000,"features":"برخورداری از پشتیبانی کامل آموزشی\nارسال تمرین‌ها و تکالیف هر جلسه برای مدرس\nبررسی تمرین‌ها و رفع اشکالات هنرجویان\nورود به جلسه بعدی پس از یادگیری کامل مطالب جلسه قبل و انجام تمرین‌ها\nامکان مشاهده جلسات در زمان دلخواه و متناسب با برنامه شخصی"},"inPerson":{"offered":true,"fee":5000000,"features":"برگزاری کلاس‌ها به‌صورت حضوری و تعاملی\nآموزش مرحله‌به‌مرحله همراه با مثال‌های واقعی\nانجام تمرین‌های عملی محاسبه حقوق و دستمزد\nامکان پرسش و پاسخ مستقیم از مدرس\nرفع اشکال و بررسی تمرین‌ها در طول دوره\nآموزش کاربردی با هدف آمادگی برای انجام امور حقوق و دستمزد در محیط کار"},"syllabus":[{"title":"آشنایی با ساختار حقوق و دستمزد","topics":"نحوه محاسبه انواع آیتم‌های حقوق و دستمزد\nنحوه محاسبه انواع فوق‌العاده‌های حقوق و دستمزد"},{"title":"محاسبه مزایا و مطالبات پایان کار کارکنان","topics":"نحوه محاسبه عیدی و پاداش کارکنان\nنحوه محاسبه سنوات خدمت\nنحوه محاسبه مانده مرخصی و مرخصی استفاده‌نشده کارکنان"},{"title":"تهیه کاربرگ‌ها و محاسبات حقوق و دستمزد","topics":"نحوه تهیه فایل محاسبه کارکرد کارکنان\nنحوه محاسبه ساعات کارکرد و اضافه‌کاری\nتهیه فایل محاسبه حقوق و دستمزد کارکنان"},{"title":"آموزش عملی نرم‌افزار سپیدار","topics":"کار با ماژول حقوق و دستمزد نرم‌افزار سپیدار\nثبت اطلاعات کارکنان\nانجام عملیات محاسبه حقوق و دستمزد در نرم‌افزار"},{"title":"مالیات حقوق کارکنان","topics":"آشنایی با مالیات بر درآمد حقوق\nنحوه محاسبه مالیات حقوق کارکنان\nآشنایی با تهیه و ارسال اطلاعات مالیات حقوق"},{"title":"بیمه تأمین اجتماعی کارکنان","topics":"آشنایی با قوانین و مقررات بیمه تأمین اجتماعی\nنحوه محاسبه حق بیمه سهم کارگر و کارفرما\nآشنایی با تهیه و ارسال لیست بیمه کارکنان"}],"goal":"در پایان این دوره، هنرجو با نحوه محاسبه کارکرد، حقوق و مزایای کارکنان، عیدی، سنوات، مرخصی، بیمه و مالیات حقوق آشنا می‌شود و می‌تواند محاسبات حقوق و دستمزد را به‌صورت عملی و با استفاده از نرم‌افزار سپیدار انجام دهد.\n\nآموزش از پایه، تمرین عملی و پشتیبانی تا یادگیری کامل."}],"articles":[]}
+  </script>
   <script>
-    const COURSES_CATALOG = [
-      {
-        id: 'crs-1',
-        badge: 'از پایه تا اشتغال',
-        title: 'دوره جامع حسابداری کاربردی ویژه ورود به بازار کار',
-        subtitle: 'آموزش گام‌به‌گام از مفاهیم پایه تا ثبت اسناد واقعی شرکتی، حقوق و دستمزد، بستن حساب‌ها و آمادگی مصاحبه استخدامی.',
-        duration: '۱۸ ساعت آموزش عملی در ۶ فصل',
-        sessionsCount: '۶ فصل کاربردی + فایل اسناد واقعی',
-        demoDuration: '۰۵:۲۰ دقیقه',
-        videoUrl: '', // اگر آدرس فایل .mp4 واقعی قرار گیرد، تگ <video> خودکار فعال می‌شود
-        longDescription: 'این دوره دقیقاً برای افرادی طراحی شده است که می‌خواهند بدون سردرگمی در مباحث تئوری دانشگاهی، کار عملی یک حسابدار در شرکت‌ها و فروشگاه‌ها را از روز اول تجربه کنند. در طول دوره، شما با فاکتورهای واقعی خرید و فروش، صورت‌حساب‌های بانکی، لیست حقوق و دستمزد و دفاتر مالی کار می‌کنید تا پس از پایان دوره با اعتمادبه‌نفس کامل در مصاحبه‌های شغلی حاضر شوید.',
-        outcomes: [
-          'تسلط کامل بر ماهیت حساب‌ها و کدینگ استاندارد حسابداری در شرکت‌ها',
-          'ثبت اسناد خرید، فروش، تنخواه، دریافت و پرداخت و مغایرت‌گیری بانکی',
-          'محاسبه کامل حقوق و دستمزد، حق بیمه تامین اجتماعی و مالیات حقوق',
-          'آمادگی عملی برای جلسات مصاحبه استخدامی و شروع کار مستقل'
-        ],
-        demoSlides: [
-          {
-            time: '۰۱:۱۰ / ۰۵:۲۰',
-            heading: 'چرا حسابداری بازار کار با تئوری کتاب‌ها متفاوت است؟',
-            text: 'در محیط واقعی شرکت، به جای حفظ کردن تعاریف، با زنجیره اسناد (پیش‌فاکتور، فاکتور، رسید انبار و فیش بانکی) سر و کار داریم. در این جلسه یاد می‌گیریم چطور از اولین سند مالی، ثبت صحیح را تشخیص دهیم.'
-          },
-          {
-            time: '۰۳:۱۵ / ۰۵:۲۰',
-            heading: 'فرمول طلایی تشخیص بدهکار و بستانکار در ۱۰ ثانیه',
-            text: 'معرفی روش کاربردی تحلیل رویداد مالی: هر حسابی که ارزش یا دارایی را دریافت می‌کند بدهکار، و منبعی که ارزش از آن خارج شده بستانکار می‌شود — همراه با ۵ مثال واقعی از فاکتورهای شرکت.'
-          },
-          {
-            time: '۰۵:۲۰ / ۰۵:۲۰',
-            heading: 'نحوه ثبت سند تنخواه‌گردانی و بستن حساب تنخواه',
-            text: 'بررسی برگه‌های هزینه تنخواه، تفکیک هزینه‌های قابل قبول مالیاتی و ثبت سند تسویه تنخواه‌دار در پایان ماه.'
-          }
-        ],
-        syllabus: [
-          {
-            chapter: 'فصل اول: مفاهیم پایه و کدینگ عملی شرکت‌ها',
-            details: 'معادله حسابداری، شناخت دقیق ماهیت حساب‌ها (دارایی، بدهی، سرمایه، درآمد و هزینه) و ساختار کدینگ ۴ سطحی در نرم‌افزارها.'
-          },
-          {
-            chapter: 'فصل دوم: حسابداری خرید، فروش و موجودی کالا',
-            details: 'ثبت فاکتورهای خرید و فروش، تخفیفات، برگشت از خرید و فروش، کنترل کاردکس انبار و محاسبه بهای تمام‌شده.'
-          },
-          {
-            chapter: 'فصل سوم: خزانه‌داری، چک و مغایرت‌گیری بانکی',
-            details: 'ثبت دریافت و پرداخت‌های نقدی و بانکی، مدیریت چک‌های دریافتی و پرداختی، خرج چک و تهیه صورت مغایرت بانکی ماهانه.'
-          },
-          {
-            chapter: 'فصل چهارم: حقوق و دستمزد، بیمه و مالیات حقوق',
-            details: 'محاسبه کارکرد، اضافه‌کاری، عیدی و سنوات، تنظیم فیش حقوقی و آموزش ارسال لیست بیمه تامین اجتماعی و مالیات حقوق.'
-          },
-          {
-            chapter: 'فصل پنجم: بستن حساب‌ها و گزارش‌های پایان سال',
-            details: 'ثبت اسناد اصلاحی، استهلاک، بستن حساب‌های موقت و دائم و تهیه تراز آزمایشی و صورت سود و زیان.'
-          },
-          {
-            chapter: 'فصل ششم: رزومه‌نویسی تخصصی و شبیه‌سازی مصاحبه استخدامی',
-            details: 'نحوه تنظیم رزومه حرفه‌ای حسابداری و پاسخ به سوالات فنی مدیران مالی در جلسات مصاحبه.'
-          }
-        ]
-      },
-      {
-        id: 'crs-2',
-        badge: 'مهارت‌های مالیاتی روز',
-        title: 'کارگاه عملی سامانه مودیان و پایانه‌های فروشگاهی',
-        subtitle: 'آموزش صفر تا صد کارپوشه سامانه مودیان، صدور انواع صورتحساب الکترونیکی، مدیریت واکنش‌ها و رفع خطاهای رایج.',
-        duration: '۱۰ ساعت آموزش تخصصی در ۵ فصل',
-        sessionsCount: '۵ فصل عملی روی محیط سامانه',
-        demoDuration: '۰۴:۱۵ دقیقه',
-        videoUrl: '',
-        longDescription: 'با اجرایی شدن قانون پایانه‌های فروشگاهی و سامانه مودیان، تمامی شرکت‌ها و واحدهای صنفی نیازمند فردی هستند که بتواند کارپوشه مودیان را بدون خطا مدیریت کند. در این کارگاه عملی، صفر تا صد دریافت شناسه یکتا، صدور صورتحساب‌های نوع ۱ و ۲، صورتحساب‌های اصلاحی و ابطالی و ارتباط مستقیم کارپوشه با اظهارنامه ارزش افزوده را به صورت تصویری و گام‌به‌گام می‌آموزید.',
-        outcomes: [
-          'پیکربندی کامل کارپوشه سامانه مودیان و دریافت شناسه یکتای حافظه مالیاتی',
-          'یافتن کد کالا و خدمت (شناسه ۱۳ رقمی) و صدور صورتحساب الکترونیکی',
-          'ثبت صورتحساب‌های ارجاعی (اصلاحی، ابطالی و برگشت از فروش)',
-          'تطبیق کارپوشه مودیان با اظهارنامه مالیات بر ارزش افزوده'
-        ],
-        demoSlides: [
-          {
-            time: '۰۱:۲۰ / ۰۴:۱۵',
-            heading: 'تفاوت صورتحساب الکترونیکی نوع اول و نوع دوم در چیست؟',
-            text: 'چه زمانی باید اطلاعات کامل خریدار (کد ملی / شناسه ملی) ثبت شود تا اعتبار ارزش افزوده برای خریدار قابل قبول باشد؟ بررسی نمونه فاکتور واقعی.'
-          },
-          {
-            time: '۰۲:۵۰ / ۰۴:۱۵',
-            heading: 'نحوه پیدا کردن سریع شناسه کالا و خدمت در سامانه stuffid',
-            text: 'روش جستجوی دقیق شناسه عمومی و اختصاصی کالا و خدمات و نرخ ارزش افزوده متناظر با هر کد.'
-          },
-          {
-            time: '۰۴:۱۵ / ۰۴:۱۵',
-            heading: 'مدیریت مهلت واکنش ۳۰ روزه به فاکتورهای خرید در کارپوشه',
-            text: 'چگونه فاکتورهای خرید ثبت‌شده در کارپوشه را بررسی، تایید یا رد کنیم تا جرایم ماده ۲۲ شامل کسب‌وکار نشود.'
-          }
-        ],
-        syllabus: [
-          {
-            chapter: 'فصل اول: کلیات قانون پایانه‌های فروشگاهی و کارپوشه مودیان',
-            details: 'آشنایی با تعاریف قانونی، مشمولین، نحوه ثبت‌نام و فعال‌سازی کارپوشه در درگاه ملی خدمات الکترونیک مالیاتی.'
-          },
-          {
-            chapter: 'فصل دوم: دریافت کلید عمومی، خصوصی و شناسه یکتای حافظه مالیاتی',
-            details: 'مراحل گام‌به‌گام تولید کلیدها، بارگذاری امضای دیجیتال و اتصال نرم‌افزارهای واسط یا شرکت‌های معتمد.'
-          },
-          {
-            chapter: 'فصل سوم: شناسه کالا و خدمت و صدور صورتحساب‌های اصلی',
-            details: 'آموزش کار با سامانه شناسه کالا و خدمت و نحوه ثبت و ارسال صورتحساب الکترونیکی نوع ۱ و ۲.'
-          },
-          {
-            chapter: 'فصل چهارم: صورتحساب‌های ارجاعی (اصلاحی، ابطالی و برگشتی)',
-            details: 'نحوه اصلاح فاکتورهای ارسال‌شده، ابطال صورتحساب اشتباه و ثبت برگشت از فروش در سامانه.'
-          },
-          {
-            chapter: 'فصل پنجم: ارتباط سامانه مودیان با اظهارنامه ارزش افزوده و جرایم',
-            details: 'نحوه استخراج گزارش‌های کارپوشه و تکمیل اظهارنامه مالیات بر ارزش افزوده پایان هر فصل.'
-          }
-        ]
-      },
-      {
-        id: 'crs-3',
-        badge: 'تخصصی بازار کار',
-        title: 'دوره کاربردی مالیات، ارزش افزوده و معاملات فصلی (ماده ۱۶۹)',
-        subtitle: 'تسلط بر تکالیف مالیاتی فصلی و سالانه شرکت‌ها و مشاغل، اظهارنامه عملکرد و تحریر دفاتر قانونی.',
-        duration: '۱۴ ساعت آموزش کاربردی در ۵ فصل',
-        sessionsCount: '۵ فصل تخصصی مالیاتی',
-        demoDuration: '۰۴:۴۵ دقیقه',
-        videoUrl: '',
-        longDescription: 'یکی از پردرآمدترین شاخه‌های حسابداری، انجام تکالیف مالیاتی فصلی و سالانه کسب‌وکارهاست. در این دوره، نحوه تنظیم و ارسال گزارش خرید و فروش فصلی (ماده ۱۶۹)، اظهارنامه ارزش افزوده، اظهارنامه عملکرد سالانه و تبصره ماده ۱۰۰ مشاغل را به همراه اصول تحریر دفاتر قانونی به صورت عملی یاد می‌گیرید.',
-        outcomes: [
-          'ارسال بدون خطای فهرست معاملات فصلی (ماده ۱۶۹ مکرر)',
-          'تهیه و ارسال اظهارنامه مالیات بر ارزش افزوده در هر دوره فصلی',
-          'آشنایی عملی با اظهارنامه عملکرد سالانه و فرم تبصره ماده ۱۰۰ اصناف',
-          'اصول تحریر دفاتر قانونی و پیشگیری از رد دفاتر مالیاتی'
-        ],
-        demoSlides: [
-          {
-            time: '۰۱:۳۰ / ۰۴:۴۵',
-            heading: 'تقویم طلایی مالیاتی که هر حسابدار باید حفظ باشد',
-            text: 'مرور مهلت‌های قانونی ارسال لیست حقوق، ارزش افزوده، گزارش فصلی ماده ۱۶۹ و اظهارنامه عملکرد خرداد و تیرماه.'
-          },
-          {
-            time: '۰۳:۱۰ / ۰۴:۴۵',
-            heading: 'نکات حیاتی در ارسال معاملات فصلی ماده ۱۶۹',
-            text: 'حد نصاب معاملات کوچک (تجمیعی)، نحوه ثبت معاملات با اشخاص فاقد کد اقتصادی و تطبیق آن با سامانه مودیان.'
-          },
-          {
-            time: '۰۴:۴۵ / ۰۴:۴۵',
-            heading: 'خط قرمزهای رد دفاتر قانونی در رسیدگی مالیاتی',
-            text: 'چگونه اسناد را ثبت و دفاتر را تحریر کنیم که ممیز مالیاتی نتواند به استناد آیین‌نامه تحریر دفاتر، دفاتر شرکت را رد کند.'
-          }
-        ],
-        syllabus: [
-          {
-            chapter: 'فصل اول: آشنایی با ساختار مالیات‌های مستقیم و تقویم مالیاتی',
-            details: 'تفکیک اشخاص حقیقی و حقوقی، گروه‌بندی مشاغل و مواعید قانونی تکالیف مالیاتی در طول سال.'
-          },
-          {
-            chapter: 'فصل دوم: آموزش عملی گزارش معاملات فصلی (ماده ۱۶۹)',
-            details: 'ثبت گزارش خرید، فروش، قراردادها و امتناع در سامانه معاملات فصلی و رفع مغایرت‌ها.'
-          },
-          {
-            chapter: 'فصل سوم: مالیات بر ارزش افزوده و اعتبار مالیاتی',
-            details: 'کالاها و خدمات معاف و مشمول، محاسبه مالیات و عوارض پرداختی و دریافتی و تکمیل اظهارنامه.'
-          },
-          {
-            chapter: 'فصل چهارم: اظهارنامه عملکرد سالانه و تبصره ماده ۱۰۰',
-            details: 'آموزش جداول اظهارنامه عملکرد، بهای تمام‌شده، هزینه‌های قابل قبول مالیاتی و توافق تبصره ماده ۱۰۰ برای اصناف.'
-          },
-          {
-            chapter: 'فصل پنجم: تحریر دفاتر قانونی (روزنامه و کل)',
-            details: 'قوانین پلمب دفاتر، اصول نگارش بدون خط‌خوردگی و نحوه تطبیق دفاتر با تراز آزمایشی.'
-          }
-        ]
-      },
-      {
-        id: 'crs-4',
-        badge: 'ابزارهای اجرایی',
-        title: 'دوره اکسل کاربردی در حسابداری و گزارش‌گیری مالی',
-        subtitle: 'فرمول‌نویسی تخصصی، طراحی جدول حقوق و دستمزد، کاردکس انبار، تنخواه‌گردانی و مغایرت‌گیری در اکسل.',
-        duration: '۱۲ ساعت آموزش پروژه‌محور در ۵ فصل',
-        sessionsCount: '۵ فصل عملی + قالب‌های آماده اکسل',
-        demoDuration: '۰۳:۵۰ دقیقه',
-        videoUrl: '',
-        longDescription: 'هیچ حسابدار حرفه‌ای بدون تسلط بر اکسل نمی‌تواند گزارش‌های مالی دقیق و سریع تهیه کند. در این دوره، به جای آموزش عمومی اکسل، مستقیماً شیت‌های مورد نیاز یک حسابدار (از جدول محاسبه حقوق و فیش حقوقی گرفته تا کاردکس انبار، راس‌گیری چک‌ها و صورت مغایرت بانکی) را فرمول‌نویسی و طراحی می‌کنیم.',
-        outcomes: [
-          'تسلط بر توابع ضروری حسابداری (SUMIFS، VLOOKUP، IF و توابع متنی/تاریخی)',
-          'طراحی صفر تا صد فایل محاسبه حقوق و دستمزد و چاپ فیش حقوقی',
-          'ساخت شیت کنترل تنخواه، کاردکس موجودی انبار و راس‌گیری چک‌ها',
-          'تهیه داشبورد و گزارش‌های خلاصه مدیریتی با Pivot Table'
-        ],
-        demoSlides: [
-          {
-            time: '۰۱:۰۵ / ۰۳:۵۰',
-            heading: 'کاربرد تابع SUMIFS در گزارش‌گیری سریع از گردش حساب‌ها',
-            text: 'نحوه جمع زدن فروش هر مشتری یا هزینه‌های هر ماه در کسری از ثانیه از روی جدول هزار ردیفی اسناد.'
-          },
-          {
-            time: '۰۲:۳۰ / ۰۳:۵۰',
-            heading: 'مغایرت‌گیری خودکار صورت‌حساب بانک با دفاتر شرکت در اکسل',
-            text: 'چگونه با ترکیب توابع جستجو، واریزی‌ها و برداشت‌های ثبت‌نشده در بانک را به صورت خودکار هایلایت کنیم.'
-          },
-          {
-            time: '۰۳:۵۰ / ۰۳:۵۰',
-            heading: 'طراحی قالب اتوماتیک فیش حقوقی پرسنل',
-            text: 'ساخت فیش حقوقی استاندارد که تنها با انتخاب نام پرسنل، تمامی آیتم‌های کارکرد، بیمه و خالص پرداختی را نمایش می‌دهد.'
-          }
-        ],
-        syllabus: [
-          {
-            chapter: 'فصل اول: استانداردسازی داده‌های مالی و فرمول‌های پایه در اکسل',
-            details: 'تنظیم فرمت اعداد فارسی، مبالغ ریالی، تاریخ‌های شمسی و کلیدهای میانبر سرعت‌بخش.'
-          },
-          {
-            chapter: 'فصل دوم: توابع شرطی و جستجوی پیشرفته ویژه حسابداران',
-            details: 'کاربرد عملی IFهای تودرتو، SUMIF، SUMIFS، COUNTIFS، VLOOKUP و XLOOKUP در اسناد مالی.'
-          },
-          {
-            chapter: 'فصل سوم: طراحی سیستم حقوق و دستمزد در اکسل',
-            details: 'پیاده‌سازی جدول محاسبه حقوق ماهانه، حق اولاد، بن، مسکن، اضافه‌کاری، کسر بیمه و مالیات پلکانی.'
-          },
-          {
-            chapter: 'فصل چهارم: ساخت کاردکس انبار، تنخواه و راس‌گیری چک',
-            details: 'فرمول‌نویسی ورود و خروج کالا، هشدار نقطه سفارش و محاسبه راس زمانی و ریالی چک‌های دریافتی.'
-          },
-          {
-            chapter: 'فصل پنجم: گزارش‌گیری مدیریتی با Pivot Table',
-            details: 'خلاصه‌سازی ترازها، تحلیل فروش ماهانه و ساخت گزارش‌های تمیز و قابل ارائه به مدیرعامل.'
-          }
-        ]
-      },
-      {
-        id: 'crs-5',
-        badge: 'عملی و اجرایی',
-        title: 'آموزش عملی کار با نرم‌افزارهای حسابداری بازار کار',
-        subtitle: 'تعریف دوره مالی، طرف‌حساب‌ها، ثبت فاکتور، انبار، عملیات چک و خزانه‌داری و گزارش‌گیری در محیط نرم‌افزار.',
-        duration: '۱۰ ساعت آموزش کاربردی در ۴ فصل',
-        sessionsCount: '۴ فصل عملی در محیط نرم‌افزار',
-        demoDuration: '۰۴:۱۰ دقیقه',
-        videoUrl: '',
-        longDescription: 'در این دوره عملی، نحوه کار در محیط نرم‌افزارهای رایج حسابداری بازار کار را از مرحله راه‌اندازی اولیه و تعریف کدینگ تا ثبت روزانه فاکتورها، عملیات چک، بستن حساب‌ها و تهیه فایل خروجی مالیاتی تمرین می‌کنیم تا در محیط کار واقعی بدون نیاز به آزمون و خطا کار خود را آغاز کنید.',
-        outcomes: [
-          'تعریف صحیح کالاها، انبار، طرف‌حساب‌ها، صندوق و حساب‌های بانکی',
-          'ثبت زنجیره پیش‌فاکتور، فاکتور خرید، فاکتور فروش و برگشتی‌ها',
-          'مدیریت کامل چک‌های دریافتی و پرداختی (وصول، واگذاری، خرج چک و عودت)',
-          'گزارش‌گیری از مرور حساب‌ها، کاردکس کالا و تراز آزمایشی'
-        ],
-        demoSlides: [
-          {
-            time: '۰۱:۱۵ / ۰۴:۱۰',
-            heading: 'اصول تعریف اول دوره در نرم‌افزار حسابداری',
-            text: 'نحوه وارد کردن مانده اول دوره حساب‌های بانکی، موجودی انبار و بدهکاران و بستانکاران بدون برهم خوردن تراز افتتاحیه.'
-          },
-          {
-            time: '۰۲:۴۵ / ۰۴:۱۰',
-            heading: 'ثبت فاکتور فروش ترکیبی (نقد، نسیه و چک) در یک عملیات',
-            text: 'چگونه هنگام صدور فاکتور فروش، بخشی از مبلغ را کارت‌خوان، بخشی را چک دریافتی و مابقی را در حساب مشتری منظور کنیم.'
-          },
-          {
-            time: '۰۴:۱۰ / ۰۴:۱۰',
-            heading: 'کنترل مرور حساب‌ها و کشف سریع اشتباهات ثبتی',
-            text: 'استفاده از گزارش مرور حساب‌ها برای بررسی گردش یک مشتری یا یک سرفصل هزینه در طول سال مالی.'
-          }
-        ],
-        syllabus: [
-          {
-            chapter: 'فصل اول: راه‌اندازی سیستم، تعاریف پایه و سند افتتاحیه',
-            details: 'تعریف شرکت، سال مالی، گروه کالا، انبار، اشخاص، حساب‌های بانکی و ثبت مانده‌های اول دوره.'
-          },
-          {
-            chapter: 'فصل دوم: عملیات بازرگانی (خرید، فروش و انبارداری)',
-            details: 'صدور فاکتور خرید و فروش، ثبت هزینه‌های حمل بار، تخفیفات و کنترل موجودی لحظه‌ای انبار.'
-          },
-          {
-            chapter: 'فصل سوم: عملیات خزانه‌داری و مدیریت چک‌ها',
-            details: 'ثبت دریافت و پرداخت، انتقال بین بانک‌ها، ثبت چک، واگذاری چک به بانک، وصول و خرج چک.'
-          },
-          {
-            chapter: 'فصل چهارم: گزارش‌گیری، دفاتر و بستن سال مالی',
-            details: 'تهیه ترازهای ۴ و ۶ ستونی، صورت سود و زیان، تهیه نسخه پشتیبان و عملیات بستن حساب‌ها.'
-          }
-        ]
-      },
-      {
-        id: 'crs-6',
-        badge: 'منتورینگ اختصاصی',
-        title: 'کوچینگ، رفع اشکال و همراهی ورود به بازار کار حسابداری',
-        subtitle: 'همراهی شخصی خانم مرضیه منتظری برای حسابداران تازه‌کار، رفع اشکال پرونده‌های واقعی و آمادگی استخدام.',
-        duration: 'جلسات اختصاصی و پشتیبانی مستمر',
-        sessionsCount: 'برنامه‌ریزی متناسب با نیاز فردی',
-        demoDuration: '۰۳:۳۰ دقیقه',
-        videoUrl: '',
-        longDescription: 'بسیاری از کارآموزان حتی پس از یادگیری مباحث، در ماه‌های اول استخدام در یک شرکت یا هنگام برخورد با یک مسئله مالیاتی خاص، نیاز به یک پشتیبان باتجربه دارند. در این برنامه کوچینگ، خانم مرضیه منتظری به صورت مستقیم کنار شماست تا سوالات عملی محیط کارتان را پاسخ دهد و مسیر رشد حرفه‌ای شما را هدایت کند.',
-        outcomes: [
-          'بررسی و نگارش رزومه استاندارد حسابداری متناسب با مهارت‌های شما',
-          'رفع اشکال روی اسناد و مسائل واقعی شرکتی که در آن مشغول به کار شده‌اید',
-          'شبیه‌سازی مصاحبه فنی و افزایش اعتمادبه‌نفس برای توافق حقوق و مزایا',
-          'راهنمایی برای شروع دریافت پروژه‌های مستقل حسابداری و مالیاتی'
-        ],
-        demoSlides: [
-          {
-            time: '۰۱:۰۰ / ۰۳:۳۰',
-            heading: 'در روز اول کاری به عنوان حسابدار جدید در شرکت از کجا شروع کنیم؟',
-            text: 'چک‌لیست تحویل گرفتن اسناد، بررسی آخرین تراز آزمایشی، وضعیت کارپوشه مالیاتی و موجودی بانک‌ها در هفته اول.'
-          },
-          {
-            time: '۰۲:۲۰ / ۰۳:۳۰',
-            heading: 'چگونه به سوالات عملی مدیران در جلسه مصاحبه پاسخ دهیم؟',
-            text: 'بررسی ۱۰ سوال پرتکرار فنی در مصاحبه‌های استخدامی حسابدار و نحوه ارائه پاسخ ساختاریافته و حرفه‌ای.'
-          },
-          {
-            time: '۰۳:۳۰ / ۰۳:۳۰',
-            heading: 'مسیر ارتقا از حسابدار اجرایی به مشاور مالی مستقل',
-            text: 'چگونه پس از کسب تجربه اولیه، پروژه‌های مالیاتی و سامانه مودیان اصناف و شرکت‌ها را به صورت پاره‌وقت بگیریم.'
-          }
-        ],
-        syllabus: [
-          {
-            chapter: 'بخش اول: ارزیابی سطح فعلی و تدوین نقشه راه شغلی',
-            details: 'شناسایی نقاط قوت و خلاهای مهارتی شما و تعیین برنامه دقیق برای ورود به موقعیت شغلی هدف.'
-          },
-          {
-            chapter: 'بخش دوم: استانداردسازی رزومه و آمادگی مصاحبه فنی',
-            details: 'ویرایش تخصصی رزومه و تمرین عملی پاسخگویی به سناریوهای استخدامی.'
-          },
-          {
-            chapter: 'بخش سوم: پشتیبانی و رفع اشکال در حین اشتغال',
-            details: 'همراهی مستقیم برای حل چالش‌های ثبتی، نرم‌افزاری و مالیاتی که در محیط کار با آن‌ها روبه‌رو می‌شوید.'
-          }
-        ]
-      }
-    ];
-    const siteNavigation = document.getElementById('primary-nav');
-    const menuToggle = document.getElementById('menu-toggle');
-    const mainContent = document.getElementById('main-content');
-    const homePage = document.getElementById('page-home');
-    const catalogPage = document.getElementById('page-courses');
-    const detailPage = document.getElementById('page-course-detail');
-    const video = document.getElementById('course-html5-video');
-    const demoStage = document.getElementById('interactive-demo-stage');
-    const demoPlayButton = document.getElementById('demo-play-btn');
+    const byId = id => document.getElementById(id);
+    const siteNavigation = byId('primary-nav');
+    const menuToggle = byId('menu-toggle');
+    const mainContent = byId('main-content');
+    const homePage = byId('page-home');
+    const catalogPage = byId('page-courses');
+    const detailPage = byId('page-course-detail');
+    const articlesPage = byId('page-articles');
+    const articlePage = byId('page-article-detail');
+    const pages = [homePage, catalogPage, detailPage, articlesPage, articlePage];
     const homeTitle = document.title;
     const homeSections = new Set(['top', 'story', 'services', 'academy', 'contact']);
-    const persianDigits = '۰۱۲۳۴۵۶۷۸۹';
     const whatsappUrl = 'https://wa.me/989139946615';
+    const defaultTeacher = 'مرضیه منتظری';
+    const portrait = byId('brand-portrait');
+    const originalPhoto = portrait.getAttribute('src');
+    const formatLabels = { offline: 'آفلاین', inPerson: 'حضوری' };
+    const money = new Intl.NumberFormat('fa-IR');
+    const video = byId('course-html5-video');
+    const demoStage = byId('interactive-demo-stage');
+    const demoPlayButton = byId('demo-play-btn');
+    let academy = {};
+    let courses = [];
+    let articles = [];
     let activeCourse;
+    let demoSlides = [];
     let demoSlideIndex = 0;
     let demoPlaybackInterval = null;
 
     function toPersianDigits(value) {
-      return String(value).replace(/[0-9]/g, digit => persianDigits[Number(digit)]);
+      return String(value).replace(/\d/g, digit => '۰۱۲۳۴۵۶۷۸۹'[Number(digit)]);
     }
 
-    function courseCard(course, headingTag) {
-      const format = course.videoUrl.trim() ? 'ویدیوی نمونه' : 'پیش‌نمایش اسلایدی';
-      const titleId = headingTag + '-' + course.id + '-title';
-
-      return `
-        <article class="course-card">
-          <div class="card-top">
-            <span class="course-tag">${course.badge}</span>
-            <span class="card-format">${format}</span>
-          </div>
-          <${headingTag} id="${titleId}">${course.title}</${headingTag}>
-          <p>${course.subtitle}</p>
-          <small class="card-duration">${course.duration}</small>
-          <a class="course-link" href="#course/${course.id}" aria-describedby="${titleId}">
-            سرفصل‌ها و پیش‌نمایش
-            <span class="arrow" aria-hidden="true">←</span>
-          </a>
-        </article>`;
+    function element(tag, className, text) {
+      const node = document.createElement(tag);
+      if (className) node.className = className;
+      if (text) node.textContent = text;
+      return node;
     }
 
-    document.getElementById('featured-courses-container').innerHTML = COURSES_CATALOG
-      .filter(course => ['crs-1', 'crs-2', 'crs-4'].includes(course.id))
-      .map(course => courseCard(course, 'h3')).join('');
-    document.getElementById('catalog-courses-container').innerHTML = COURSES_CATALOG
-      .map(course => courseCard(course, 'h2')).join('');
+    function lines(value) {
+      return (value || '').split(/\r?\n/).map(line => line.trim()).filter(Boolean);
+    }
+
+    function listOf(text) {
+      const list = element('ul', 'topic-list');
+      list.append(...lines(text).map(line => element('li', '', line)));
+      return list;
+    }
+
+    function publicEntries(records) {
+      return (records || []).filter(item => item && item.published === true && item.id && item.title);
+    }
+
+    function safeWebLink(value) {
+      if (!value) return '';
+      try {
+        const url = new URL(value);
+        return url.protocol === 'https:' ? url.href : '';
+      } catch { return ''; }
+    }
+
+    function offeredFormats(course) {
+      return Object.keys(formatLabels).filter(key => course[key]?.offered === true);
+    }
+
+    function tuition(value) {
+      const digits = String(value ?? '').trim()
+        .replace(/[۰-۹]/g, digit => '۰۱۲۳۴۵۶۷۸۹'.indexOf(digit))
+        .replace(/[٠-٩]/g, digit => '٠١٢٣٤٥٦٧٨٩'.indexOf(digit))
+        .replace(/[,٬،\s]/g, '');
+      if (!/^\d+$/.test(digits)) return null;
+      const fee = Number(digits);
+      return Number.isSafeInteger(fee) ? fee : null;
+    }
+
+    function feeLabel(value) {
+      const fee = tuition(value);
+      if (fee === null) return 'استعلام شهریه';
+      return fee === 0 ? 'رایگان' : money.format(fee) + ' تومان';
+    }
+
+    function cardFee(course, formats) {
+      const priced = formats.filter(key => tuition(course[key].fee) !== null);
+      if (!priced.length) return 'استعلام شهریه';
+      if (priced.length < formats.length) return formatLabels[priced[0]] + ' ' + feeLabel(course[priced[0]].fee);
+      const fees = priced.map(key => tuition(course[key].fee));
+      if (new Set(fees).size === 1) return feeLabel(fees[0]);
+      const lowest = Math.min(...fees);
+      if (lowest === 0) return formatLabels[priced[fees.indexOf(0)]] + ' رایگان';
+      return 'از ' + feeLabel(lowest);
+    }
+
+    function recordCard(record, headingTag, kind) {
+      const isCourse = kind === 'course';
+      const card = element('article', 'course-card');
+      const top = element('div', 'card-top');
+      const formats = isCourse ? offeredFormats(record) : [];
+      top.append(element('span', 'course-tag', isCourse ? formats.map(key => formatLabels[key]).join(' و ') || 'دورهٔ آموزشی' : 'آموزش رایگان'));
+      if (isCourse && record.level) top.append(element('span', 'card-format', 'سطح ' + record.level));
+      const title = element(headingTag, '', record.title);
+      card.append(top, title);
+      if (record.summary) card.append(element('p', '', record.summary));
+      if (isCourse && formats.length) {
+        card.append(element('span', 'card-price', cardFee(record, formats)));
+      }
+      const link = element('a', 'course-link', isCourse ? 'جزئیات و ثبت‌نام دوره' : 'مطالعهٔ آموزش');
+      link.href = '#' + kind + '/' + encodeURIComponent(record.slug || record.id);
+      link.setAttribute('aria-label', link.textContent + '، ' + record.title);
+      card.append(link);
+      return card;
+    }
+
+    function renderCards(id, records, tag, kind, emptyText) {
+      byId(id).replaceChildren(...(records.length
+        ? records.map(item => recordCard(item, tag, kind))
+        : [element('p', 'empty-list', emptyText)]));
+    }
+
+    function searchText(text) {
+      return (text || '').replace(/ي/g, 'ی').replace(/ك/g, 'ک').replace(/[\s\u200c]+/g, ' ').trim().toLocaleLowerCase('fa');
+    }
+
+    function renderCourseList() {
+      const query = searchText(byId('course-search').value);
+      const mode = byId('course-mode-filter').value;
+      const matches = courses.filter(course =>
+        (!mode || course[mode]?.offered) && searchText([course.title, course.summary, course.instructor].join(' ')).includes(query));
+      renderCards('catalog-courses-container', matches, 'h2', 'course',
+        courses.length ? 'دوره‌ای با این مشخصات پیدا نشد.' : 'هنوز دوره‌ای منتشر نشده است.');
+    }
 
     function setMenuOpen(open) {
       siteNavigation.classList.toggle('is-open', open);
       menuToggle.setAttribute('aria-expanded', String(open));
     }
 
+    function matchRecord(records, key) {
+      return records.find(item => key === encodeURIComponent(item.id) || (item.slug && key === encodeURIComponent(item.slug)));
+    }
+
     function showRoute(focusHeading = false) {
       const route = location.hash.slice(1);
-      const course = COURSES_CATALOG.find(item => route === 'course/' + item.id);
-      const showCatalog = route === 'courses';
-      const showHome = !course && !showCatalog;
-      const section = showHome && homeSections.has(route) ? document.getElementById(route) : null;
-
+      const courseRoute = route.startsWith('course/');
+      const articleRoute = route.startsWith('article/');
+      const course = courseRoute && matchRecord(courses, route.slice(7));
+      const article = articleRoute && matchRecord(articles, route.slice(8));
+      let page = homePage;
+      let navId = homeSections.has(route) ? route : 'top';
+      if (courseRoute || route === 'courses') {
+        page = course ? detailPage : catalogPage;
+        navId = 'courses';
+      } else if (articleRoute || route === 'articles') {
+        page = article ? articlePage : articlesPage;
+        navId = 'articles';
+      }
       stopDemoPlayback();
       video.pause();
       setMenuOpen(false);
-      homePage.hidden = !showHome;
-      catalogPage.hidden = !showCatalog;
-      detailPage.hidden = !course;
-
+      for (const view of pages) view.hidden = view !== page;
       if (course) populateCourseDetail(course);
-
-      const navRoute = course || showCatalog ? 'courses' : section?.id || 'top';
+      if (article) populateArticle(article);
+      byId('course-route-note').hidden = !courseRoute || Boolean(course);
+      byId('article-route-note').hidden = !articleRoute || Boolean(article);
       for (const link of siteNavigation.querySelectorAll('a')) {
-        const isActive = link.hash === '#' + navRoute;
-        if (isActive) {
-          link.setAttribute('aria-current', course || navRoute === 'top' || showCatalog ? 'page' : 'location');
+        if (link.hash === '#' + navId) {
+          link.setAttribute('aria-current', page !== homePage || navId === 'top' ? 'page' : 'location');
         } else {
           link.removeAttribute('aria-current');
         }
       }
+      document.title = page === homePage ? homeTitle : page.querySelector('h1').textContent + ' | دایان حسابداری';
+      const section = page === homePage && homeSections.has(route) ? byId(route) : null;
+      if (section && route !== 'top') section.scrollIntoView({ block: 'start' });
+      else window.scrollTo(0, 0);
+      if (focusHeading) (section || page).querySelector('h1, h2')?.focus({ preventScroll: true });
+    }
 
-      document.title = course ? course.title + ' | دایان حسابداری' :
-        showCatalog ? 'دوره‌های حسابداری بازار کار | دایان حسابداری' : homeTitle;
+    function showText(id, text) {
+      const node = byId(id);
+      node.textContent = text || '';
+      node.hidden = !text;
+    }
 
-      if (section && section.id !== 'top') {
-        section.scrollIntoView({ block: 'start' });
-      } else {
-        window.scrollTo(0, 0);
+    function updateEnrollment(mode) {
+      const suffix = mode ? ' به‌صورت ' + formatLabels[mode] : '';
+      const message = 'سلام وقت بخیر، برای ثبت‌نام در «' + activeCourse.title + '»' + suffix + ' پیام می‌دهم. لطفاً راهنمایی‌ام کنید.';
+      byId('course-enrollment').href = whatsappUrl + '?text=' + encodeURIComponent(message);
+    }
+
+    function renderFormats(course) {
+      const choices = byId('format-options');
+      const panels = byId('format-descriptions');
+      choices.replaceChildren();
+      panels.replaceChildren();
+      const formats = offeredFormats(course);
+      for (const [index, key] of formats.entries()) {
+        const mode = course[key];
+        const choice = element('label', 'format-choice');
+        const input = element('input');
+        input.type = 'radio';
+        input.name = 'course-format';
+        input.value = key;
+        input.checked = index === 0;
+        choice.append(input, element('span', '', formatLabels[key]), element('strong', '', feeLabel(mode.fee)));
+        choices.append(choice);
+
+        const hasAddress = key === 'inPerson' && academy.address;
+        if (!mode.features && !hasAddress) continue;
+        const panel = element('div', 'format-panel');
+        panel.append(element('h3', '', 'آموزش ' + formatLabels[key]));
+        if (mode.features) panel.append(listOf(mode.features));
+        if (hasAddress) {
+          const address = element('address', 'academy-address');
+          address.append(element('strong', '', 'محل برگزاری'), element('span', '', academy.address));
+          panel.append(address);
+        }
+        panels.append(panel);
       }
+      byId('course-formats').hidden = !formats.length;
+      byId('course-learning-formats').hidden = !panels.childElementCount;
+      updateEnrollment(formats[0]);
+    }
 
-      if (focusHeading) {
-        const currentPage = section || (showHome ? homePage : showCatalog ? catalogPage : detailPage);
-        currentPage.querySelector('h1, h2')?.focus({ preventScroll: true });
+    function populateCourseDetail(course) {
+      activeCourse = course;
+      byId('detail-title').textContent = course.title;
+      byId('detail-breadcrumb-title').textContent = course.title;
+      showText('detail-subtitle', course.summary);
+      showText('detail-description', course.description);
+      showText('detail-goal', course.goal);
+      byId('course-goal').hidden = !course.goal;
+      const instructor = course.instructor || defaultTeacher;
+      byId('instructor-name').textContent = instructor;
+      byId('instructor-photo').src = portrait.src;
+      byId('instructor-photo').hidden = instructor !== defaultTeacher;
+
+      const facts = byId('course-facts');
+      facts.replaceChildren();
+      for (const [label, value] of [['سطح دوره', course.level], ['پیش‌نیاز', course.prerequisite], ['مدت دوره', course.duration]]) {
+        if (!value) continue;
+        const row = element('div');
+        row.append(element('dt', '', label), element('dd', '', value));
+        facts.append(row);
+      }
+      facts.hidden = !facts.childElementCount;
+      renderFormats(course);
+      const syllabus = course.syllabus || [];
+      byId('course-program').hidden = !syllabus.length;
+      byId('detail-syllabus-list').replaceChildren(...syllabus.map((chapter, index) => {
+        const details = element('details');
+        const summary = element('summary');
+        const icon = element('span', 'disclosure-icon');
+        icon.setAttribute('aria-hidden', 'true');
+        summary.append(element('span', '', chapter.title), icon);
+        details.append(summary);
+        if (chapter.topics) details.append(listOf(chapter.topics));
+        details.open = index === 0;
+        return details;
+      }));
+      setupPreview(course, syllabus);
+    }
+
+    function setupPreview(course, syllabus) {
+      const src = safeWebLink(course.videoUrl);
+      demoSlides = syllabus;
+      demoSlideIndex = 0;
+      const preview = byId('course-preview');
+      preview.open = false;
+      preview.hidden = !src && !demoSlides.length;
+      byId('demo-title').textContent = src ? 'تماشای ویدیوی نمونه' : 'مرور اسلایدی سرفصل‌ها';
+      if (src) video.src = src;
+      else if (video.hasAttribute('src')) {
+        video.removeAttribute('src');
+        video.load();
+      }
+      video.hidden = !src;
+      demoStage.hidden = Boolean(src) || !demoSlides.length;
+      if (!demoStage.hidden) renderDemoSlide();
+    }
+
+    function renderDemoSlide() {
+      const slide = demoSlides[demoSlideIndex];
+      if (!slide) return;
+      byId('demo-slide-counter').textContent = 'اسلاید ' + toPersianDigits(demoSlideIndex + 1) + ' از ' + toPersianDigits(demoSlides.length);
+      byId('demo-slide-heading').textContent = slide.title;
+      byId('demo-slide-text').textContent = lines(slide.topics).join(' • ');
+      byId('demo-progress-bar').style.width = ((demoSlideIndex + 1) * 100 / demoSlides.length) + '%';
+    }
+
+    function advanceDemoSlide() {
+      if (demoSlides.length) demoSlideIndex = (demoSlideIndex + 1) % demoSlides.length;
+      renderDemoSlide();
+    }
+
+    function stopDemoPlayback() {
+      clearInterval(demoPlaybackInterval);
+      demoPlaybackInterval = null;
+      demoPlayButton.textContent = 'پخش اسلایدها';
+    }
+
+    function populateArticle(article) {
+      byId('article-title').textContent = article.title;
+      showText('article-summary', article.summary);
+      const paragraphs = (article.body || '').split(/\r?\n\s*\r?\n/).filter(part => part.trim());
+      byId('article-body').replaceChildren(...paragraphs.map(part => element('p', '', part)));
+      const link = byId('article-resource');
+      const url = safeWebLink(article.resourceUrl);
+      link.hidden = !url;
+      if (url) link.href = url;
+      else link.removeAttribute('href');
+    }
+
+    function applyContent(data, embedded) {
+      academy = data.academy || {};
+      courses = publicEntries(data.courses);
+      articles = publicEntries(data.articles);
+      for (const node of document.querySelectorAll('[data-academy-name]')) node.textContent = academy.name || '';
+      byId('contact-address').textContent = academy.address || '';
+      byId('contact-address').parentElement.hidden = !academy.address;
+      const photo = academy.portrait || '';
+      if (embedded && /^data:image\/(?:jpeg|png|webp);base64,/.test(photo)) portrait.src = photo;
+      else if (/^\/?media\/portraits\//.test(photo)) portrait.src = photo.replace(/^\//, '');
+      else portrait.src = originalPhoto;
+      renderCards('featured-courses-container', courses.slice(0, 3), 'h3', 'course', 'هنوز دوره‌ای منتشر نشده است.');
+      renderCourseList();
+      renderCards('article-list', articles, 'h2', 'article', 'هنوز مقاله یا آموزش رایگانی منتشر نشده است.');
+      showRoute();
+    }
+
+    async function loadContent() {
+      const snapshot = byId('academy-content');
+      const workingPage = /\/(?:index\.html)?$/i.test(location.pathname);
+      const fromFile = !snapshot.dataset.source || !workingPage || !/^https?:$/.test(location.protocol);
+      try {
+        let data;
+        if (fromFile) data = JSON.parse(snapshot.textContent);
+        else {
+          const response = await fetch(snapshot.dataset.source, { cache: 'no-cache' });
+          if (response.status === 404) {
+            // A standalone release can also be hosted without the adjacent source file.
+            applyContent(JSON.parse(snapshot.textContent), true);
+            byId('content-error').hidden = true;
+            return;
+          }
+          if (!response.ok) throw new Error('Content unavailable');
+          data = await response.json();
+        }
+        applyContent(data, fromFile);
+        byId('content-error').hidden = true;
+      } catch {
+        byId('content-error').hidden = false;
+        showRoute();
       }
     }
+
+    portrait.addEventListener('error', () => {
+      if (portrait.getAttribute('src') !== originalPhoto) {
+        portrait.src = originalPhoto;
+        byId('instructor-photo').src = originalPhoto;
+      }
+    });
+    byId('content-retry').addEventListener('click', loadContent);
+    byId('course-search').addEventListener('input', renderCourseList);
+    byId('course-mode-filter').addEventListener('change', renderCourseList);
+    byId('format-options').addEventListener('change', event => updateEnrollment(event.target.value));
+    byId('course-preview').addEventListener('toggle', event => {
+      if (!event.currentTarget.open) {
+        stopDemoPlayback();
+        video.pause();
+      }
+    });
+    demoPlayButton.addEventListener('click', () => {
+      if (demoPlaybackInterval !== null) { stopDemoPlayback(); return; }
+      demoPlayButton.textContent = 'توقف پخش';
+      demoPlaybackInterval = setInterval(advanceDemoSlide, 4200);
+    });
+    byId('demo-next-btn').addEventListener('click', advanceDemoSlide);
 
     menuToggle.addEventListener('click', () => setMenuOpen(!siteNavigation.classList.contains('is-open')));
     siteNavigation.addEventListener('click', event => {
@@ -1396,88 +1429,6 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       event.preventDefault();
       mainContent.focus();
     });
-
-    function populateCourseDetail(course) {
-      activeCourse = course;
-      demoSlideIndex = 0;
-      const values = {
-        'detail-breadcrumb-title': course.title,
-        'detail-badge': course.badge,
-        'detail-duration': course.duration,
-        'detail-title': course.title,
-        'detail-subtitle': course.subtitle,
-        'detail-long-desc': course.longDescription,
-        'sidebar-level': course.badge,
-        'sidebar-sessions': course.sessionsCount
-      };
-      for (const [id, text] of Object.entries(values)) {
-        document.getElementById(id).textContent = text;
-      }
-      document.getElementById('detail-outcomes-grid').innerHTML = course.outcomes.map(outcome => `<li>${outcome}</li>`).join('');
-      document.getElementById('detail-syllabus-list').innerHTML = course.syllabus.map(chapter => `
-        <article>
-          <h3>${chapter.chapter}</h3>
-          <p>${chapter.details}</p>
-        </article>`).join('');
-
-      const instructor = document.querySelector('.instructor');
-      if (!instructor.querySelector('img')) {
-        const teacherPhoto = new Image(56, 56);
-        teacherPhoto.alt = '';
-        teacherPhoto.src = document.getElementById('brand-portrait').src;
-        instructor.prepend(teacherPhoto);
-      }
-      const message = `سلام وقت بخیر خانم منتظری،\nپیش‌نمایش و توضیحات «${course.title}» را در وب‌سایت دایان حسابداری دیدم و برای تهیه این دوره و دریافت لینک کامل آموزش پیام می‌دهم.`;
-      document.getElementById('course-enrollment').href = whatsappUrl + '?text=' + encodeURIComponent(message);
-
-      const videoUrl = course.videoUrl.trim();
-      const hasVideo = Boolean(videoUrl);
-      video.hidden = !hasVideo;
-      demoStage.hidden = hasVideo || course.demoSlides.length === 0;
-      document.getElementById('demo-format').textContent = hasVideo ? 'ویدیوی نمونه • ' + course.demoDuration : 'پیش‌نمایش اسلایدی';
-
-      if (hasVideo) {
-        video.src = videoUrl;
-      } else {
-        if (video.hasAttribute('src')) {
-          video.removeAttribute('src');
-          video.load();
-        }
-        if (!demoStage.hidden) renderDemoSlide();
-      }
-    }
-
-    function renderDemoSlide() {
-      const slides = activeCourse.demoSlides;
-      const current = demoSlideIndex + 1;
-      const slide = slides[demoSlideIndex];
-      document.getElementById('demo-slide-counter').textContent = `اسلاید ${toPersianDigits(current)} از ${toPersianDigits(slides.length)}`;
-      document.getElementById('demo-slide-heading').textContent = slide.heading;
-      document.getElementById('demo-slide-text').textContent = slide.text;
-      document.getElementById('demo-progress-bar').style.width = (100 * current / slides.length) + '%';
-    }
-
-    function advanceDemoSlide() {
-      demoSlideIndex = (demoSlideIndex + 1) % activeCourse.demoSlides.length;
-      renderDemoSlide();
-    }
-
-    function stopDemoPlayback() {
-      if (demoPlaybackInterval === null) return;
-      clearInterval(demoPlaybackInterval);
-      demoPlaybackInterval = null;
-      demoPlayButton.textContent = 'پخش اسلایدها';
-    }
-
-    demoPlayButton.addEventListener('click', () => {
-      if (demoPlaybackInterval !== null) {
-        stopDemoPlayback();
-        return;
-      }
-      demoPlayButton.textContent = 'توقف پخش';
-      demoPlaybackInterval = setInterval(advanceDemoSlide, 4200);
-    });
-    document.getElementById('demo-next-btn').addEventListener('click', advanceDemoSlide);
 
     const phoneInput = document.getElementById('vis-phone');
     phoneInput.addEventListener('input', () => {
@@ -1536,7 +1487,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     fontSelector.addEventListener('change', applyFontPreset);
 
     window.addEventListener('hashchange', () => showRoute(true));
-    showRoute();
+    loadContent();
   </script>
 </body>
 </html>
