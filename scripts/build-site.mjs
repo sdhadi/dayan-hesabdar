@@ -1,4 +1,4 @@
-import { copyFile, mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
+import { copyFile, cp, mkdir, readFile, realpath, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -7,6 +7,8 @@ const htmlPath = path.join(root, 'index.html');
 const data = JSON.parse(await readFile(path.join(root, 'site_content.json'), 'utf8'));
 const template = await readFile(htmlPath, 'utf8');
 const snapshotOnly = process.argv.includes('--refresh-snapshot');
+const archiveOnly = process.argv.includes('--archive');
+const dastkhatDirectory = path.join(root, 'media', 'fonts', 'dastkhat');
 
 // Only published records enter the distributable HTML or the offline snapshot.
 function publishedItems(items = []) {
@@ -45,6 +47,29 @@ async function embeddedPortrait(value) {
   }
 }
 
+async function buildArchive(html) {
+  const filename = html.match(/^ @archive_filename ([^\r\n]+\.html)\r?$/m)?.[1];
+  if (!filename || path.basename(filename) !== filename) throw new Error('Expected an archive filename in provenance.');
+
+  const fontUrl = /url\("\.\/media\/fonts\/dastkhat\/(Dastkhat[A-Za-z]*-Variable\.woff2)"\)/g;
+  const urls = await Promise.all(Array.from(html.matchAll(fontUrl), async ([url, font]) => {
+    const bytes = await readFile(path.join(dastkhatDirectory, font));
+    return [url, 'url("data:font/woff2;base64,' + bytes.toString('base64') + '")'];
+  }));
+  if (urls.length) {
+    const licenses = await Promise.all(['OFL.txt', 'THIRD-PARTY-NOTICES.txt'].map(name =>
+      readFile(path.join(dastkhatDirectory, name), 'utf8')
+    ));
+    const embedded = new Map(urls);
+    html = html.replace(fontUrl, url => embedded.get(url));
+    html = html.replace('<html dir="rtl" lang="fa">', tag =>
+      '<!--\nDastkhat font license and third-party notices\n' + licenses.join('\n\n') + '\n-->\n' + tag
+    );
+  }
+  const directory = path.join(root, 'خروجی‌ها و نسخه‌های سامانه و مستندات (Deliverables_Archive)');
+  await writeFile(path.join(directory, filename), html);
+}
+
 const payload = {
   academy: { ...data.academy, portrait: await embeddedPortrait(data.academy?.portrait) },
   courses: publishedItems(data.courses),
@@ -58,10 +83,13 @@ const source = snapshotOnly ? ' data-source="site_content.json"' : '';
 const html = template.replace(marker, () => '<script id="academy-content" type="application/json"' + source + '>\n' + json + '\n  </script>');
 if (snapshotOnly) {
   await writeFile(htmlPath, html);
+} else if (archiveOnly) {
+  await buildArchive(html);
 } else {
   const dist = path.join(root, 'dist');
   await mkdir(path.join(dist, 'admin'), { recursive: true });
   await writeFile(path.join(dist, 'index.html'), html);
   await copyFile(path.join(root, 'admin', 'index.html'), path.join(dist, 'admin', 'index.html'));
+  await cp(dastkhatDirectory, path.join(dist, 'media', 'fonts', 'dastkhat'), { recursive: true });
 }
 console.log('Published content: ' + payload.courses.length + ' course(s), ' + payload.articles.length + ' article(s).');

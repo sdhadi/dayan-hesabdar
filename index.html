@@ -4,12 +4,12 @@
  @agent Codex (Desktop)
  @model GPT-6
  @gateway_account OpenAI via Codex desktop
- Turn 5 | 1405/09/02 (2026-11-23)
+ Turn 6 | 1405/09/03 (2026-11-24)
  @execution_mode Windows desktop workspace
- @base_version Website v2.2
- @output_version Website v2.3 (SCHEMA_VERSION: schema_v1)
- @change_scope [Approved course catalog, tuition and venue, free learning library, authenticated editorial publishing]
- @archive_filename 04_Website_Static_v2.3_14050902_T05_Codex-GPT6-OpenAI_Academy_Content_Management.html
+ @base_version Website v2.3
+ @output_version Website v2.4 (SCHEMA_VERSION: schema_v1)
+ @change_scope [Dastkhat font previews and mixed heading weights, colors and families]
+ @archive_filename 05_Website_Static_v2.4_14050903_T06_Codex-GPT6-OpenAI_Typography_Previews.html
 -->
 <!--
 Vazirmatn v33.003
@@ -126,6 +126,55 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       font-display: swap;
     }
 
+    /* Dastkhat v1.220 · https://github.com/dastyar-io/dastkhat-font/releases/tag/v1.220 · SIL OFL 1.1 */
+    @font-face {
+      font-family: "Dastkhat";
+      src: url("./media/fonts/dastkhat/Dastkhat-Variable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Dastkhat Diamond";
+      src: url("./media/fonts/dastkhat/DastkhatDiamond-Variable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Dastkhat Bar";
+      src: url("./media/fonts/dastkhat/DastkhatBar-Variable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Dastkhat Dots";
+      src: url("./media/fonts/dastkhat/DastkhatDots-Variable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Dastkhat BarDots";
+      src: url("./media/fonts/dastkhat/DastkhatBarDots-Variable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "Dastkhat Round";
+      src: url("./media/fonts/dastkhat/DastkhatRound-Variable.woff2") format("woff2");
+      font-weight: 100 900;
+      font-style: normal;
+      font-display: swap;
+    }
+
     :root {
       color-scheme: light;
       --font-heading: Vazirmatn, Tahoma, sans-serif;
@@ -166,8 +215,24 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 
     h1, h2, h3, p, figure, dl, dd { margin: 0; }
     h1, h2, h3 { font-family: var(--font-heading); line-height: 1.4; }
-    h1, h2 { font-weight: 850; }
-    h3 { font-weight: 780; }
+    h1, h2 { font-weight: var(--heading-weight, 850); }
+    h3 { font-weight: var(--subheading-weight, 780); }
+
+    :root[data-type-style] {
+      --heading-weight: 720;
+      --subheading-weight: 670;
+      --price-weight: 780;
+      --heading-accent: #79532c;
+      --heading-accent-on-dark: var(--brass);
+    }
+
+    :root[data-type-style="soft"] {
+      --heading-accent: #22634d;
+      --heading-accent-on-dark: #c6e1ce;
+    }
+
+    :root[data-type-style] .academy { --heading-accent: var(--heading-accent-on-dark); }
+    :root[data-type-style] .heading-emphasis { color: var(--heading-accent); font-weight: 880; }
     h2 { font-size: clamp(1.65rem, 3.1vw, 2.75rem); }
     a { color: inherit; text-decoration: none; }
     button, input, select { font: inherit; color: inherit; }
@@ -494,8 +559,9 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .footer-options { display: flex; flex-wrap: wrap; align-items: center; gap: 0.55rem 1.3rem; font-size: 0.82rem; }
     .footer-options a { color: var(--green-dark); font-weight: 750; }
     .footer-options a:hover { text-decoration: underline; }
-    .font-preference { display: flex; align-items: center; gap: 0.4rem; color: var(--muted); }
-    .font-preference select { max-width: 100%; min-height: 2.65rem; border: 1px solid #ccd6c9; border-radius: 0.45rem; padding-inline: 0.55rem; background: var(--white); font-size: 0.79rem; }
+    .font-preference { display: flex; min-width: 0; align-items: center; gap: 0.4rem; color: var(--muted); }
+    .font-preference label { flex: none; }
+    .font-preference select { min-width: 0; max-width: 100%; min-height: 2.65rem; border: 1px solid #ccd6c9; border-radius: 0.45rem; padding-inline: 0.55rem; background: var(--white); font-size: 0.79rem; }
 
     .breadcrumbs { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.35rem 0.6rem; padding-block: 1.3rem; color: var(--muted); font-size: 0.82rem; }
     .breadcrumbs a { color: var(--green-dark); font-weight: 690; }
@@ -575,7 +641,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     .syllabus { margin-block-start: 0.65rem; }
 
     .course-card { overflow-wrap: anywhere; }
-    .card-price { margin-block: auto .55rem; color: var(--green); font-weight: 720; }
+    .card-price { margin-block: auto .55rem; color: var(--green); font-weight: var(--price-weight, 720); }
     .course-card .course-link { margin-block-start: .35rem; }
     .catalog-tools { display: flex; align-items: end; flex-wrap: wrap; gap: .85rem; margin-block-end: 1.45rem; }
     .catalog-tools .field:first-child { flex: 1 1 18rem; }
@@ -722,7 +788,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
             <p class="eyebrow">دقت در اعداد، دقت در آینده</p>
             <h1 id="home-title" tabindex="-1">
               حسابداری دقیق،
-              <span>آموزش برای بازار کار</span>
+              <span class="heading-emphasis">آموزش برای بازار کار</span>
             </h1>
             <p class="hero-intro">
               با <strong>مرضیه منتظری</strong> امور حسابداری و مالیاتی کسب‌وکارتان را سامان دهید یا مهارت‌های موردنیاز بازار کار را با تمرین‌های عملی یاد بگیرید.
@@ -760,7 +826,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <div class="shell story-layout">
           <div>
             <p class="eyebrow">درباره دایان حسابداری</p>
-            <h2 id="story-title" tabindex="-1">تجربهٔ حسابداری در عمل</h2>
+            <h2 id="story-title" tabindex="-1">تجربهٔ حسابداری <span class="heading-emphasis">در عمل</span></h2>
           </div>
           <p>
             مرضیه منتظری در دایان حسابداری، امور مالی و مالیاتی شرکت‌ها و واحدهای صنفی را انجام می‌دهد و همان تجربهٔ کار با اسناد و سامانه‌ها را به زبان ساده به کارآموزان منتقل می‌کند.
@@ -772,7 +838,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <div class="shell service-layout">
           <div>
             <p class="eyebrow">برای شرکت‌ها و واحدهای صنفی</p>
-            <h2 id="services-title" tabindex="-1">خدمات حسابداری و مالیاتی</h2>
+            <h2 id="services-title" tabindex="-1">خدمات حسابداری و <span class="heading-emphasis">مالیاتی</span></h2>
             <p class="section-lead">انجام امور مالی کسب‌وکارتان به صورت پیمانکاری، پاره‌وقت یا با نظارت دوره‌ای، متناسب با نیاز شما.</p>
             <a class="text-link" href="#contact">درخواست مشاوره <span class="arrow" aria-hidden="true">←</span></a>
           </div>
@@ -815,7 +881,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
           <div class="academy-heading">
             <div>
               <p class="eyebrow">آموزش کاربردی</p>
-              <h2 id="academy-title" tabindex="-1">دوره‌های حسابداری بازار کار</h2>
+              <h2 id="academy-title" tabindex="-1">دوره‌های حسابداری <span class="heading-emphasis">بازار کار</span></h2>
               <p class="section-lead">شیوهٔ برگزاری، شهریه و سرفصل‌ها را ببینید و دورهٔ مناسب خود را انتخاب کنید.</p>
             </div>
             <a class="button button-inverse" href="#courses">همهٔ دوره‌ها <span class="arrow" aria-hidden="true">←</span></a>
@@ -828,7 +894,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <div class="shell contact-layout">
           <div>
             <p class="eyebrow">ارتباط مستقیم</p>
-            <h2 id="contact-title" tabindex="-1">گفت‌وگو با مرضیه منتظری</h2>
+            <h2 id="contact-title" tabindex="-1">گفت‌وگو با <span class="heading-emphasis">مرضیه منتظری</span></h2>
             <p class="section-lead">برای مشاورهٔ مالی کسب‌وکارتان یا ثبت‌نام در دوره‌ها تماس بگیرید یا پیام بفرستید.</p>
             <a class="contact-number tabular-nums" href="tel:09139946615"><bdi dir="ltr">۰۹۱۳ ۹۹۴ ۶۶۱۵</bdi></a>
             <address class="academy-address" hidden><strong>نشانی آموزشگاه</strong><span id="contact-address"></span></address>
@@ -879,7 +945,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         </nav>
         <header class="catalog-intro">
           <p class="eyebrow" data-academy-name></p>
-          <h1 tabindex="-1">دوره‌های حسابداری بازار کار</h1>
+          <h1 tabindex="-1">دوره‌های حسابداری <span class="heading-emphasis">بازار کار</span></h1>
           <p class="section-lead">شهریه و شرایط دوره‌ها را مقایسه کنید و برای ثبت‌نام با آموزشگاه در تماس باشید.</p>
         </header>
         <section class="catalog-body" aria-label="فهرست دوره‌ها">
@@ -978,7 +1044,7 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         <nav class="breadcrumbs" aria-label="مسیر صفحه"><a href="#top">خانه</a><span aria-hidden="true">/</span><span aria-current="page">مقالات و آموزش‌های رایگان</span></nav>
         <header class="catalog-intro">
           <p class="eyebrow" data-academy-name></p>
-          <h1 tabindex="-1">مقالات و آموزش‌های رایگان</h1>
+          <h1 tabindex="-1">مقالات و آموزش‌های <span class="heading-emphasis">رایگان</span></h1>
         </header>
         <section class="catalog-body" aria-label="فهرست مطالب">
           <p id="article-route-note" class="listing-note" hidden>این مطلب در حال حاضر در دسترس نیست.</p>
@@ -1012,13 +1078,28 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
       <div class="footer-options">
         <a href="tel:09139946615"><bdi dir="ltr">۰۹۱۳ ۹۹۴ ۶۶۱۵</bdi></a>
         <div class="font-preference">
-          <label for="font-preset-selector">فونت</label>
+          <label for="font-preset-selector">فونت و سبک تیتر</label>
           <select id="font-preset-selector">
             <option value="vazirmatn" selected>وزیرمتن</option>
-            <option value="peyda-dana">پیدا و دانا</option>
-            <option value="kalameh-yekan">کلمه و یکان بخ</option>
-            <option value="yekanbakh">یکان بخ</option>
-            <option value="lalezar-estedad">لاله‌زار و استعداد</option>
+            <optgroup label="دستخط">
+              <option value="dastkhat-square">دستخط · نقطهٔ مربعی</option>
+              <option value="dastkhat-diamond">دستخط · نقطهٔ لوزی</option>
+              <option value="dastkhat-bar">دستخط · نقطهٔ خطی</option>
+              <option value="dastkhat-dots">دستخط · نقطهٔ گرد</option>
+              <option value="dastkhat-bar-dots">دستخط · نقطهٔ گردِ چسبیده</option>
+              <option value="dastkhat-round">دستخط · گوشه‌های گرد</option>
+            </optgroup>
+            <optgroup label="ترکیب فونت، وزن و رنگ">
+              <option value="vazirmatn-mixed">وزیرمتن · تیتر دورنگ</option>
+              <option value="dastkhat-vazirmatn">دستخط خطی و وزیرمتن</option>
+              <option value="dastkhat-round-mixed">دستخط گردِ چسبیده و گرد</option>
+            </optgroup>
+            <optgroup label="فونت‌های دیگر">
+              <option value="peyda-dana">پیدا و دانا</option>
+              <option value="kalameh-yekan">کلمه و یکان بخ</option>
+              <option value="yekanbakh">یکان بخ</option>
+              <option value="lalezar-estedad">لاله‌زار و استعداد</option>
+            </optgroup>
           </select>
         </div>
       </div>
@@ -1458,7 +1539,16 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     // Alternative fonts are requested only when selected.
     const persianFontsUrl = 'https://cdn.jsdelivr.net/gh/AmirAbbasVafaee/persian-fonts-cdn@main/css/all-fonts.css';
     const fontPresets = {
-      'vazirmatn': { heading: 'Vazirmatn', body: 'Vazirmatn', sources: [] },
+      'vazirmatn': { heading: 'Vazirmatn', body: 'Vazirmatn' },
+      'dastkhat-square': { heading: 'Dastkhat', body: 'Dastkhat' },
+      'dastkhat-diamond': { heading: 'Dastkhat Diamond', body: 'Dastkhat Diamond' },
+      'dastkhat-bar': { heading: 'Dastkhat Bar', body: 'Dastkhat Bar' },
+      'dastkhat-dots': { heading: 'Dastkhat Dots', body: 'Dastkhat Dots' },
+      'dastkhat-bar-dots': { heading: 'Dastkhat BarDots', body: 'Dastkhat BarDots' },
+      'dastkhat-round': { heading: 'Dastkhat Round', body: 'Dastkhat Round' },
+      'vazirmatn-mixed': { heading: 'Vazirmatn', body: 'Vazirmatn', style: 'editorial' },
+      'dastkhat-vazirmatn': { heading: 'Dastkhat Bar', body: 'Vazirmatn', style: 'editorial' },
+      'dastkhat-round-mixed': { heading: 'Dastkhat BarDots', body: 'Dastkhat Dots', style: 'soft' },
       'peyda-dana': { heading: 'Peyda', body: 'Dana', sources: [persianFontsUrl] },
       'kalameh-yekan': { heading: 'Kalameh', body: 'YekanBakh', sources: [persianFontsUrl] },
       'yekanbakh': { heading: 'YekanBakh', body: 'YekanBakh', sources: [persianFontsUrl] },
@@ -1472,8 +1562,8 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
     const loadedFontSources = new Set();
     const fontSelector = document.getElementById('font-preset-selector');
     function applyFontPreset() {
-      const preset = fontPresets[fontSelector.value];
-      for (const url of preset.sources) {
+      const preset = fontPresets[fontSelector.value] ?? fontPresets.vazirmatn;
+      for (const url of preset.sources ?? []) {
         if (loadedFontSources.has(url)) continue;
         const stylesheet = document.createElement('link');
         stylesheet.rel = 'stylesheet';
@@ -1481,10 +1571,14 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
         document.head.append(stylesheet);
         loadedFontSources.add(url);
       }
-      document.documentElement.style.setProperty('--font-heading', preset.heading + ', Vazirmatn, Tahoma, sans-serif');
-      document.documentElement.style.setProperty('--font-body', preset.body + ', Vazirmatn, Tahoma, sans-serif');
+      const root = document.documentElement;
+      root.style.setProperty('--font-heading', preset.heading + ', Vazirmatn, Tahoma, sans-serif');
+      root.style.setProperty('--font-body', preset.body + ', Vazirmatn, Tahoma, sans-serif');
+      if (preset.style) root.dataset.typeStyle = preset.style;
+      else delete root.dataset.typeStyle;
     }
     fontSelector.addEventListener('change', applyFontPreset);
+    applyFontPreset();
 
     window.addEventListener('hashchange', () => showRoute(true));
     loadContent();
